@@ -1,0 +1,55 @@
+<div class="flex-container">
+    <section id="pending">
+        <div class="container text-center mt-5">
+            <label class="tagtitle text-start mt-4 mb-3" style="font-size: 25px; color: #848484 ">
+                    Your Appointment request is pending... 
+            </label>
+        </div>
+        <div class=" card mt-3 pb-2 m-2" style="border: 2px solid #000000;
+                box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
+            <div class="card-body container-fluid ps-5 pt-4 pe-5 pb-2">
+                <div class="card-title" style="font-size:25px ;font-weight: 800;">
+                    <%=final.patient_first_name%>
+                        <%=final.patient_last_name%>
+                </div>
+                <p class="card-subtitle ">Gender:
+                    <%=final.gender%>
+                </p>
+                <p class="card-subtitle">Age:
+                    <%=final.patient_age%>
+                </p>
+                <label for="card-text">Track via Email: </label>
+                <label for="card-text" style="font-weight: 600;"><%=final.email%></label>
+                <div class="row pt-4">
+                    <div class="col pt-5">
+                        <p class="card-subtitle" style="font-weight: 600">Dr.
+                            <%=final.doctor_first_name%>
+                                <%=final.doctor_last_name%>
+                        </p>
+                        <p class="card-subtitle pt-2">
+                            <%=final.specialization%>
+                        </p>
+                    </div>
+                    <div class="col pt-5">
+                        <p class="card-subtitle" style="font-weight: 600">Appointment Date</p>
+                        <p class="card-subtitle pt-2" style="color: #388440; font-weight: bold;">
+                            <%=final.date%> |
+                                <%=final.start%> -
+                                    <%=final.end%>
+                        </p>
+                    </div>
+                    <div class="row pt-5 justify-content-center m-auto">
+                        <button type="button " class="btn btn-success btn me-3 " style="width: 120px; background-color: #FF0000; border-color: #FF0000; border-radius: 10px;">Cancel</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</div>
+
+<div class="container mt-5">
+    <div class="row pt-5 pe-5 me-5 d-flex justify-content-end">
+        <button type="button " class="btn btn-success btn " style="width: 110px;" onclick="window.location.href='/'">Go Home</button>
+    </div>
+</div>

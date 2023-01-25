@@ -1,0 +1,16 @@
+1. npm init -y
+2. npm i express
+3. npm i --save-dev nodemon  // edit script : "devStart": "nodemon server.js"
+4. npm i ejs *app.set('view engine', 'ejs')* // For view engine // res.render
+5. npm i express-ejs-layouts // app.set("layout", "layouts/layout) // for redundant content like footer and header
+6. npm i body-parser // access different input elements to another page
+7. sql tools vs extension
+
+Folders
+1. Models - interact with DATABASE
+2. Public - for css and js files
+3. Static - ... Not sure for downloadable files
+4. Partials - partial files that can be reused
+5. Routes - root route for example: user or author
+6. Views - for display of routes. For example you have users in route then create a folder inside views with 
+	  	 user name then create those pages under user, like user/new, user/lists

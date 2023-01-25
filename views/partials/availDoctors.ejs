@@ -1,0 +1,98 @@
+<%if(locals.noNurse != null){%>
+    <%noNurse.forEach(data=>{%>
+        <div class="container adsecappcard mt-4 mb-2">
+            <div class="row">
+                <div class="col">
+                    <p class="adsecpatientname ">Dr.
+                        <%=data.DLname%>
+                            <%=data.DLname[0]%>.
+                    </p>
+                </div>
+                <div type="button" class="col">
+                    <p class="adsecappdate center " type="button" data-bs-toggle="modal" data-bs-target="#<%=data.doctor_ID%>">
+                        <img src="/assets/addicon.png" alt="" class="me-2" style="height: 28px;"> ADD PAIR
+                    </p>
+                </div>
+                <div type="button" class="col">
+                    <p class="adsecappdate center " ID="Delete" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                        <img src="/assets/removeicon.png" alt="" class="me-2" style="height: 26px;"> DELETE
+                    </p>
+                </div>
+            </div>
+        </div>
+        <%})%>
+            <!--Modal-->
+            <%noNurse.forEach(data=>{%>
+                <div class="modal modal-lg" tabindex="-1" id="<%=data.doctor_ID%>">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content" style=" border: 1px solid #000000; border-radius: 10px;">
+                            <div class="modal-body">
+                                <div class="container">
+                                    <div class="row mb-3 mt-2" style="text-align: center;">
+                                        <H5 style="font-weight: 600; font-size: 25px; color: #434343; text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">PAIRING</h5>
+                                    </div>
+
+                                    <form method="POST" action="match">
+                                        <div class="row mb-3">
+                                            <div class="col">
+                                                <select class="form-select m-auto" aria-label="Default select example" id="whole1" name="doctorPair">
+                                                    <option value="<%=data.doctor_ID%>" >Dr. <%=data.DLname%> <%=data.DLname[0]%>.</option>
+                                                </select>
+                                            </div>
+                                            <div class="col">
+                                                <div class="center">
+                                                    <select class="form-select m-auto" aria-label="Default select example" id="whole1" name="nursePair">
+                                                <%nurseList.forEach(res=>{%>
+                                                    <option value="<%=res.doctor_Secretary_ID%>" ><%=res.doctor_Secretary_first_name%> <%=res.doctor_Secretary_last_name%></option>
+                                                <%})%>
+                                                </select>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="row center">
+                                            <button id="match" style="text-align: center;" type="submit" class="center match">
+                                                <p style="font-weight: 600; font-size: 22px;" class="m-auto">MATCH</p>
+                                            </button>
+                                    </form>
+                                    </div>
+
+                                    <div style="text-align: center; display: none;" class="center success">
+                                        <div class="row mt-3 center" style="width: 741px; height: 25px; background: #2F9D44; border: 1px solid rgba(0, 0, 0, 0.5); border-radius: 10px;">
+                                            <p style="font-weight: 600; font-size: 15px; color: #FFFFFF;" class="m-auto">Match Complete!</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <form action="removeDoctor" method="post">
+                    <div class="modal fade modal" id="deleteModal" tabindex="-1" aria-labelledby="modlabel" aria-hidden="true" data-bs-backdrop="static">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header align-content-center" style="padding: 40px;">
+                                    <div class=" col modal-title fs-5" id="otp">Are you sure you want to remove<br> Dr.
+                                        <%=data.DLname%>
+                                            <%=data.DLname[0]%>. ?</div>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-footer center">
+                                    <button type="submit" class="btn btn-success" style="border-radius:10px; background-color:#c3f0ff;border-color: #FF0000 ;width: 110px; color: black; border: 0px; height: 40px;" data-bs-dismiss="modal" id="removeDoctor" name="doctor_ID" value="<%=data.doctor_ID%>">Yes</button>
+                                    <button type="button" class="btn btn-success" style="border-radius:10px ;width: 115px; height: 41px; background-color: #d9d9d9; color: black;border: 0px;" data-bs-dismiss="modal">No</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+                <%})%>
+                    <%}%>
+
+                        <script>
+                            $(".match").click(function() {
+                                $('.success').css({
+                                    'display': 'block'
+                                });
+                            })
+                        </script>

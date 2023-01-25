@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <title>Change Info</title>
+    <link rel="stylesheet" href="seccalendar.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/air-datepicker/2.2.3/js/datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/air-datepicker/2.2.3/js/i18n/datepicker.en.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script> 
+    <!--for confirm alert-->
+
+
+
+</head>
+<body style="overflow:hidden">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+  
+
+    
+    <div class="container-fluid "  >
+      <nav class="navbar navbar-expand-lg fixed-top px-lg-5 ">
+          <a class="navbar-brand " href="#"> 
+              <img src="ManilaMed-Logo.png" class="img-fluid " alt=""  >
+          </a>
+              <ul class="navbar-nav ms-auto ">
+                  <li class="nav-item me-3 mt-2">
+                      <div class="secname ">Ella Smith</div>
+                      <div class="secrole">Secretary</div>
+                  </li>
+                  </ul>
+                 
+                  <div class="dropdown">
+                      <a
+                        class="dropdown-toggle d-flex align-items-center hidden-arrow"
+                        href="#"
+                        id="navbarDropdownMenuAvatar"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        <img 
+                          src="secprofile.png"
+                          class="secprofile"
+                          alt=""
+                        />
+                      </a>
+                      <ul
+                        class="dropdown-menu dropdown-menu-end"
+                        aria-labelledby="navbarDropdownMenuAvatar"
+                    
+                      >
+                        <li>
+                          <a class="dropdown-item" href="#">Manage Account</a>
+                        </li>
+                        <li>
+                          <a class="dropdown-item" href="#">Logout</a>
+                        </li>
+                      </ul>
+                    </div>
+                    </nav>
+
+                
+  </div>
+
+  <div class="container-fluid">
+    <div class="row flex-nowrap">
+        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 " id="leftborderside">
+            <div class="d-flex flex-column lign-items-center align-items-sm-start sidebarcontent px-3 pt-2 text-white min-vh-100">
+              <ul class="collapse show nav flex-column center" id="submenu1" data-bs-parent="#menu">
+                <li>
+                    <a href="#" class=" "> <img src="homeicon.png" class="img-fluid mb-5" alt="" style="filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));" > </a>
+                </li>
+                <li>
+                    <a href="#" class="sidebaricons  "> <img src="manageschedbar.png" class="img-fluid mb-5" alt="" style="filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));" ></a>
+                </li>
+                <li>
+                  <a href="#" class="sidebaricons "> <img src="settingsbar.png" class="img-fluid mb-5 " alt=""  style="filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));"> </a>
+              </li>
+            </ul>
+            </div>
+        </div>
+   
+
+
+
+  <div class="col managemiddleside  ">
+
+    <div class="row mt-5 ms-3">
+        
+        <div class="col-2 mt-5 ">
+            <div class="box-sizing: border-box; ">
+            <p id="secpicture"></p></div>
+        </div>
+        <div class="col mt-5 " >
+            <div class="row mt-5">
+            <p style="font-weight: 600;
+            font-size: 25px;
+            color: #848484;">
+            Ella Jennifer Smith</p>
+            </div>
+            <div class="row ">
+                 <p style="font-weight: 500;
+                font-size: 20px;
+                color: #848484;">
+                Secretary</p>
+            </div>
+        </div>
+    </div>
+    <div class="row center mt-4 mb-4">
+        <hr class="mproline">
+    </div>
+    
+    <div class="row ms-5">
+        <div class="col-2 ms-5">
+        <p style="font-weight: 600;
+        font-size: 21px;
+        color: #848484;">
+        Manage Profile</p>
+    </div>
+        </div>
+
+        <div class="row container mt-4 " style="margin-left: 180px;padding-right: 290px;">
+            <div class="col">
+                <p  style="font-weight: 400;
+                font-size: 17px;
+                color: #848484;">
+                Edit Name:
+            </p>
+            </div>
+            <div class="col ">
+              <input type="text" class="form-control text-center edituserp " >
+              <label class =" mt-3 center edittag" >First Name</label>  
+            </div>
+            <div class="col">
+          
+                <input type="text" class="form-control text-center edituserp" >
+                <label class ="edittag mt-3 center">Middle Name</label>  
+              
+            </div>
+            <div class="col">
+              
+                <input type="text" class="form-control text-center edituserp" >
+                <label class ="edittag mt-3 center">Last Name</label>  
+              
+            </div>  
+        </div>
+                 <!--EDITED PART-->
+
+        <div class=" row" style="margin-left: 1250px;margin-top: 90px;margin-bottom: auto; margin-right: auto;">
+          <button type="button " class="btn btn-success btn "   style="width: 140px;" >Save Changes</button>
+        </div>
+                     <!--EDITED PART-->
+
+    </div>
+
+    
+  
+   
+
+    </div>
+
+
+
+
+
+
+
+
+    
+ 
+  </div>
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+
+ 
+    
+
+      
+   
+
+        
+         
+        
+
+      
+  
+
+
+
+   
+<script>
+
+
+        
+  
+
+ $('.datepicker-here').datepicker({
+        language: 'en',
+        inline: true
+    })
+
+ 
+ $(function() {
+        var enabledDays = ['2022-12-17', '2022-12-18'];
+
+        $('.datepicker-here').datepicker({
+            dateFormat: 'yyyy/mm/dd',
+            onRenderCell: function onRenderCell(date, cellType) {
+                if (cellType == 'day') {
+                    var day = (date.getFullYear() + '-' + (('0' + (date.getMonth() + 1)).slice(-2)) + '-' + (('0' + date.getDate()).slice(-2)));
+                    var isDisabled = enabledDays.indexOf(day) == -1;
+                    return {
+                        disabled: isDisabled
+                    }
+                }
+            }
+        })
+    });
+ 
+
+
+
+
+
+
+
+  
+  
+  
+</script>
+
+    
+</body>
+</html>

@@ -1,0 +1,362 @@
+.adcbox{
+    height: 540px;
+    width: 943px;
+    border-radius: 10px;
+    background: #D9D9DD;
+    box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.25);    
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 7%;
+} 
+    
+.adfcover{
+    width: 800px;
+    height: 700px;
+    background: linear-gradient(90deg, #000000 0%, #FFFFFF 49.95%);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.adsectag{
+    margin-top: 36%;
+    margin-left: 4%;
+    margin-bottom: auto;
+    margin-right: auto;
+}
+
+.adlogtag{
+    margin-top: 15%;
+    margin-bottom: auto; 
+}
+#adpicture{
+    margin-left: 32%;
+    width: 130px;
+    height: 130px;
+    border: 6px solid #000000;
+    border-radius: 50%;
+    background: #D9D9D9;
+    font-style: 'Montserrat';
+    font-weight: 700;
+    font-size: 45px;
+    color: rgba(0, 0, 0, 0.5);
+    text-align: center;
+    padding-top: 7%;
+}
+
+#adfloatingInput{
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 2px solid #949494;
+    width: 340px;
+    outline: none;
+    margin-left: 15px;
+    font-size: 15px;
+    box-shadow: none;
+    background: #FCFDFE;
+}
+
+#adusnamelabel{
+    font-weight: 400;
+    font-size: 16px;    
+    margin-left: 4%;
+    color: #000;
+}
+
+
+#adfloatingPassword{
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 2px solid #949494;
+    width: 340px;
+    outline: none;
+    margin-left: 15px;
+    font-size: 15px;
+    box-shadow: none;
+    background: #FCFDFE;
+}
+
+#adspasslabel{
+    font-weight: 400;
+    font-size: 16px;    
+    margin-left: 4%;
+     color: #000;
+}
+
+#adlast{
+    font-style: italic;
+    font-weight: 300;
+    font-size: 17px;
+    line-height: 30px;
+    color: #2BB5DB;
+    margin-top: 51px;
+    margin-left: 15px;
+}
+#adsignin{
+    width: 110px;
+    background: #000000;
+    border: 1px solid #B4B4B4;
+    border-radius: 25px;   
+    font-weight: 700;
+    font-size: 19px;
+}
+
+
+.adminprofile{
+    height: 45px;    
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+
+    }
+
+
+    #adminfilter{
+        border: none;
+        box-shadow: none;
+        font-weight: 700;
+        font-size: 21px;
+        margin-top: 15px;
+        margin-left: 20px;
+        margin-bottom: auto;
+        margin-right: auto;
+        color: #434343;
+        width: 270px;
+        height: auto;
+        background-image: url(silverarrowdown.png);
+        background-size: 15px;
+
+     
+    }
+
+
+    #adleftborderside{
+   
+        background: linear-gradient(180deg, #FFFFFF 0%, #000000 100%);        width: 79px;
+        margin-top: 110px;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        border-left: 1px solid #000000;
+        border-top: 1px solid #000000;
+    
+    }
+
+    #adpendingsecapplist{
+    
+
+
+        box-sizing: border-box;
+        width: 850px;
+        height: 620px;
+        background: rgba(217, 217, 217, 0.3);
+        border-radius: 15px;
+        overflow-y: scroll;
+        }
+
+        .adsecappcard{
+    
+            width: 785px;
+            height: 65px;
+            background: #D9D9D9;
+            border-bottom: 1px solid #848484;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 10px;
+         }
+         .adsecpatientname{
+            font-family: 'Montserrat';
+            font-weight: 600;
+            font-size: 18px;
+            color: #000000;
+            margin-top: 18px;
+            margin-bottom: auto;
+            margin-left: 20px;
+            margin-right: auto;
+         }    
+         
+         .adsecappdate{
+            background: #FFFFFF;
+            border-radius: 5px;
+            width: 180px;
+            height: 45px;
+            font-weight: 700;
+            font-size: 18px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            color: #848484;
+            border: 1px solid #000000;
+            margin-left: 52%;
+        }
+
+        #Delete{
+            background: #FFFFFF;
+            border-radius: 5px;
+            width: 180px;
+            height: 45px;
+            font-weight: 700;
+            font-size: 18px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            color: #848484;
+            border: 1px solid #000000;
+            margin-left: 22%;
+        }
+
+
+        .adsetsched{
+            width: 614px;
+            height: 460px;      
+            background: #FFFFFF;
+            border-radius: 20px; 
+         }
+
+
+         
+         .doctorname{
+            font-weight: 600; 
+            font-size: 18px; 
+            font-family: 'Montserrat';
+         }
+         .downhere{
+            width: 614px;
+            height: 300px;      
+            background: #FFFFFF;
+            border-radius: 20px; 
+         }
+         .AddDoctor{
+            width: 560px;
+            height: 122px;
+            border-bottom: 1px solid #848484;
+            background: #E0F7FF;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 15px;
+            text-align: center;
+            padding-top: 49px;
+            font-family: 'Montserrat';
+         }
+
+         #adwow{
+            box-sizing: border-box;
+            width: 570px;
+            height: 340px;
+            background: rgba(217, 217, 217, 0.3);
+            border-radius: 15px;
+            overflow-y: scroll;
+         }
+
+         #whole{
+            background: #F1F1F1;
+            border-bottom: 1px solid #848484;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 10px;
+            margin-right: 15px;
+            width: 350px; 
+            height: 50px;
+        
+        
+        }
+        #whole1{
+            box-shadow: none;
+            background-image: url(silverarrowdown.png);
+            background-size: 15px;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            width: 350px; 
+            height: 50px;
+            font-weight: 600; font-size: 18px; color: #000000;
+            border:none;
+            border-bottom: 1px solid #848484;
+        
+        
+        }
+        #match{
+            border-bottom: 1px solid #848484;
+            background: #E0F7FF;
+          
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 10px;
+            width: 741px; 
+            height: 55px;
+        }
+
+        .withsecretary{
+            width: 520px;
+            height: 57px;
+            border: none ;
+            border-radius: 10px;
+            background-color: #F1F1F1 ;
+            color: #000000;
+
+         }
+
+         .withsecretaryitm{
+            background: #F1F1F1;
+            border: none;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            border-bottom: 1px solid #848484;
+
+
+         }
+         
+         .withsecretarycolor{
+            border: none ;
+            background-color: #F1F1F1 ;
+            color: #000000;
+            border-radius: 10px;
+
+
+         }
+
+         .withsecretarycolor:not(.collapsed){
+            background-color: #F1F1F1 ;
+            color: #000 ;
+
+         }
+
+         .updateb{
+            background: #FFFFFF;
+            border-radius: 5px;
+            width: 130px;
+            height: 35px;
+            font-weight: 700;
+            font-size: 14px;
+            color: #848484;
+            border: 1px solid #000000;
+            float: right;
+        }
+
+      
+        #addinput{       
+         
+            width: 340px;
+            font-size: 15px;
+            padding-left: 20px;
+            color: #000;
+            border: 1px solid rgba(0, 0, 0, 0.5);
+
+        
+        }
+
+  
+
+        #addselecthmo{
+            box-shadow: none;
+            background-image: url(silverarrowdown.png);
+            background-size: 15px;
+            width: 338px; 
+            height: 58px;
+            font-size: 15px; color: #000000;
+            border: 1px solid rgba(0, 0, 0, 0.5);
+        
+        
+        }
+
+    #addfinal{
+        border-bottom: 1px solid #848484;
+        background: #E0F7FF;
+       
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 10px;
+        width: 310px; 
+        height: 55px;
+
+
+    }
+
+    

@@ -1,0 +1,30 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "Hospital",
+            "database": "HospitalDatabase",
+            "username": "root",
+            "password": "teamnut2"
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "Hospital2",
+            "database": "Hospitaldatabases",
+            "username": "root",
+            "password": "teamnut2"
+        }
+    ]
+}

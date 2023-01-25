@@ -1,0 +1,130 @@
+<% if(locals.appointments!= null){%>
+
+    <%appointments.forEach(data=>{%>
+        <!--Appointment Modals-->
+        <div class="modal fade modal-lg " tabindex="-1" id="<%=data.appointment_ID%>" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div class="center">
+                            <div class="row">
+                                <p style="font-weight: 600;
+        font-size: 25px;
+        color: #000000;">REQUEST</p>
+                            </div>
+                        </div>
+                        <div class="container" style=" border: 1px solid #388440;; border-radius: 20px; ">
+                            <div class="row">
+                                <p class="secreqname mt-3 center">
+                                    <%=data.patient_Fname%>
+                                        <%=data.patient_Lname%>
+                                </p>
+                            </div>
+                            <div class="row">
+                                <p class="reqtag mt-1 center">Patient Request</p>
+                            </div>
+
+
+                            <div class="row mt-3">
+                                <div class="col-sm-4">
+                                    <div class="box-sizing: border-box;">
+                                        <p id="secpicture"></p>
+                                    </div>
+                                </div>
+                                <div class="col mt-4">
+                                    <div class="row">
+                                        <div class="col-5 ">
+                                            <p class="center">Requested Doctor: </p>
+                                        </div>
+                                        <div class="col text-center">
+                                            <p style="font-weight: 600;">Dr.
+                                                <%=data.doctor_Fname%>
+                                                    <%=data.doctor_Lname%><br>
+                                                        <span class="center " style="font-weight: 400;">(<%=data.specialization%>)</span>
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-5 ">
+                                            <p class="center ms-1">Selected Schedule: </p>
+                                        </div>
+                                        <div class="col text-center">
+                                            <p style="font-weight: 600;">
+                                                <%=data.modalDate%><br>
+                                                    <span class="center " style="font-weight: 400;"><%=data.start%> - <%=data.end%></span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="style1">
+
+                            <div class="row">
+                                <p class="reqtag mt-1 mb-3 center">Patient Information</p>
+                            </div>
+                            <div class="row ms-5">
+                                <div class="col-2">
+                                    <p>Name: </p>
+                                </div>
+                                <div class="col">
+                                    <p style="font-weight: 600;">
+                                        <%=data.patient_Fname%>
+                                            <%=data.patient_Lname%>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="row ms-5">
+                                <div class="col-2">
+                                    <p>Gender: </p>
+                                </div>
+                                <div class="col">
+                                    <p style="font-weight: 600;">
+                                        <%=data.gender%>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="row ms-5">
+                                <div class="col-2">
+                                    <p>Age: </p>
+                                </div>
+                                <div class="col">
+                                    <p style="font-weight: 600;">
+                                        <%=data.age%>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="row ms-5">
+                                <div class="col-2">
+                                    <p>Contact #: </p>
+                                </div>
+                                <div class="col">
+                                    <p style="font-weight: 600;">
+                                        <%=data.contact%>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="row ms-5 mb-4">
+                                <div class="col-2">
+                                    <p>Email: </p>
+                                </div>
+                                <div class="col">
+                                    <p style="font-weight: 600;">
+                                        <%=data.email%>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <%})%>
+            <%}%>

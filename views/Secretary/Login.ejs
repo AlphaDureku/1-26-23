@@ -1,0 +1,115 @@
+<div class="container cbox fcover">
+    <div class="row ">
+        <div class="col sectag">
+            <p style="font-weight: 700; font-size: 30px;  color: #388440; text-align: left;">Making appointments
+                <br> easy for you.<img src="/assets/medlogo.png" height="30" style="margin-bottom: 19px;"> </p>
+
+        </div>
+        <div class="col logtag">
+            <p style="font-family: Montserrat; font-weight: 700; font-size: 26px; color: #24B7E9; text-align: center;">LOGIN</p>
+            <div class="center">
+                <div class="input-group passgrpfloat mt-4 mb-4">
+                    <div class="form-floating ">
+                        <input type="email" class="form-control " for="code3" id="rbord" placeholder="username" name="username">
+                        <label for="code3" id="usnamelabel">Username</label>
+                    </div>
+                </div>
+            </div>
+            <div class="center">
+                <div class="input-group passgrpfloat" id="show_hide_password">
+                    <div class="form-floating mt-2 ">
+                        <input type="password" class="form-control" id="rbord" for="code2" placeholder="Password" name="password">
+                        <label for="code2" id="spasslabel">Password</label>
+                    </div>
+                    <span class="input-group-text rbordicon" href=""><a class=" fa fa-eye-slash eyecon" aria-hidden="true"  ></a></span>
+                </div>
+            </div>
+            <div class="row" style="position: absolute; display: none;" id="errorDisplay">
+                <p style="color: red; text-align: center; margin: 5% 0 0 75%; font-weight: 600;  left: 8%;">Invalid credentials</p>
+            </div>
+            <div class="row" style="position: absolute; display: none;" id="successDisplay">
+                <p style="color: #16b256; text-align: center; margin: 5% 0 0 125%; font-weight: 600;  left: 8%;">Logging in...</p>
+            </div>
+            <div class="center mt-5">
+                <button id='btn' type="button" class="btn btn-success btn " style="width: 110px;">Sign in</button>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+
+<script>
+    $(document).keyup(function(event) {
+        if (event.keyCode === 13) {
+            $.post("admin/login", {
+                credentials: 'same-origin',
+                username: $('input[name="username"]').val(),
+                password: $('input[name="password"]').val(),
+            }, function(data) {
+                if (data == 'success') {
+                    $('#errorDisplay').css({
+                        'display': 'none'
+                    })
+                    $('#successDisplay').css({
+                        'display': 'block'
+                    })
+                    setTimeout(() => {
+                        $(location).attr('href', 'admin/dashboard');
+                    }, 1000);
+
+
+                } else {
+                    $('#errorDisplay').css({
+                        'display': 'block'
+                    })
+                }
+            })
+
+        }
+    });
+
+    $("#btn").click(function() {
+        $.post("admin/login", {
+            credentials: 'same-origin',
+            username: $('input[name="username"]').val(),
+            password: $('input[name="password"]').val(),
+        }, function(data) {
+            if (data == 'success') {
+                $('#errorDisplay').css({
+                    'display': 'none'
+                })
+                $('#successDisplay').css({
+                    'display': 'block'
+                })
+                setTimeout(() => {
+                    $(location).attr('href', 'admin/dashboard');
+                }, 1000);
+
+
+            } else {
+                $('#errorDisplay').css({
+                    'display': 'block'
+                })
+            }
+        })
+    });
+
+    $(document).ready(function() {
+        $("#show_hide_password a").on('click', function(event) {
+            event.preventDefault();
+            if ($('#show_hide_password input').attr("type") == "text") {
+                $('#show_hide_password input').attr('type', 'password');
+                $('#show_hide_password i').addClass("fa-eye-slash");
+                $('#show_hide_password i').removeClass("fa-eye");
+            } else if ($('#show_hide_password input').attr("type") == "password") {
+                $('#show_hide_password input').attr('type', 'text');
+                $('#show_hide_password i').removeClass("fa-eye-slash");
+                $('#show_hide_password i').addClass("fa-eye");
+            }
+        });
+    });
+</script>

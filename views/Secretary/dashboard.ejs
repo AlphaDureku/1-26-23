@@ -1,0 +1,515 @@
+<link rel="stylesheet" href="/css/dashboard_calendar.css">
+<div class="col-7 middleside  ">
+    <div class="row">
+        <div class="col">
+            <form action="dashboard-change" method="GET">
+                <div class="searcwrapper mt-4 ms-4">
+                    <input type="search" class="form-control " placeholder="Search appointments" aria-label="Search" aria-describedby="search-addon" id="searchbardes" name="nameQuery" />
+                </div>
+        </div>
+        <div class="col me-4">
+            <select onchange="this.form.submit()" class="form-select float-end mt-4 " aria-label="Default select example" id="outdoctorfilter" name="doctor_ID">
+            <%doctors.forEach(data=>{%>
+                <option value="<%=data.doctor_ID%>">Dr. <%=data.doctor_first_name%> <%=data.doctor_last_name%></option>
+            <%})%>
+    
+          </select>
+        </div>
+    </div>
+    <div class="container appointmentsbox mt-4 ">
+        <div class="row">
+            <div class="col">
+                <p class="appheadertag">Appointments</p>
+                <%let counter= 0%>
+                    <%appointments.forEach(data=>{%>
+                        <%counter++%>
+                            <%})%>
+                                <p class="appcounter">Total:
+                                    <%=counter%>
+                                </p>
+            </div>
+            <div class="col ">
+                <select onchange="this.form.submit()" class="form-select float-end" aria-label="Default select example" id="appfilter" name="value">
+                    <option  value="thisDay" <%=selection.Day%>>This day</option>
+                    <option value="thisWeek" <%=selection.Week%>>This week</option>
+                    <option  value="thisMonth" <%=selection.Month%>>This month</option>
+                    <option value="thisYear" <%=selection.Year%>>This year</option>
+                </select>
+                </form>
+            </div>
+        </div>
+        <%-include('../partials/dashboardAppointments')%>
+    </div>
+
+</div>
+
+<div class="col rightside " id="backOff">
+    <div class="row">
+        <form action="set-schedule" method="POST">
+            <div class=" container  setsched mt-4 flex-column">
+                <div class="row">
+                    <div class="col">
+                        <p class="availheadertag mt-4 ms-3 ">Schedule Calendar</p>
+                    </div>
+                    <div class="col">
+                        <button type="button" class="btn btn-success float-end mt-4 me-3 setava" data-bs-toggle="modal" data-bs-target="#setdocsched">SET AVAILABILITY</button>
+                        <!--modal-->
+                        <div class="modal fade modal-xl " tabindex="-1" id="setdocsched" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <div class="center">
+                                            <div class="row">
+                                                <p style="font-weight: 600;
+                
+                font-size: 25px;
+                color: #000000;">Set availability</p>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3 mb-2 ">
+                                            <div class="col ">
+                                                <div class="row ms-4 mt-2">
+                                                    <p style="font-weight: 500;
+                  font-size: 15px;
+                  color: #000000;">Choose a date of availability</p>
+                                                    <div class="row text-center mb-4 mt-4">
+
+                                                        <div class="col ">
+                                                            <img src="/assets/partiallybooked.png" alt="" id="legend_1"><label style="margin-left: 5%; font-weight: 600; color: #2F9D44;">With Appointments</label>
+                                                        </div>
+
+                                                        <div class="col ">
+                                                            <img src="/assets/whitec.png" alt="" id="legend_2"><label style="margin-left: 5%; font-weight: 600;color: #434343;">No appointments</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="center">
+                                                    <label class="datepicker-here" id="datepicker-here"></label>
+                                                    <label class="datepicker-here2" style="display: none;"></label>
+
+                                                </div>
+                                                <p style="color: red; text-align: center; margin-top: 2%; font-weight: 600; display: none; position: absolute; left: 8%;" id="dateChecker">Selected a past date. Please select a valid date</p>
+                                                <input value="" hidden id="spy" name="doctor_schedule_ID">
+                                                <button type="button" class="btn btn-success btn  " style="width: 110px;background: #29CC97;border-color: #29CC97; margin: 12% 0 0 75%;" id="updateSchedule">Update</button>
+                                                <button type="button" class="btn btn-success btn me-3 " style="width: 110px; background-color: #FF0000; border-color: #FF0000; margin: 12% 0 0 75%;display: none;" id="setSchedule">Back</button>
+
+                                            </div>
+
+                                            <div class="col">
+                                                <div class="row">
+                                                    <p class="secgreentag">No. of patients</p>
+                                                </div>
+                                                <div class="row">
+                                                    <p style="font-weight: 400;
+                    font-size: 16px;">Set the maximum number of patients.</p>
+                                                </div>
+                                                <div class="row ms-2">
+                                                    <div class="col-4">
+                                                        <p style="    font-weight: 600;
+                      font-size: 16px;">No. of Patients: </p>
+                                                    </div>
+                                                    <div class="col mb-3">
+                                                        <input type="number" class="form-control text-center" style="width: 140px;height: 35px;border: 1px solid #000000;" name="maxPatient" id='maxPatient' required>
+                                                    </div>
+
+                                                </div>
+                                                <div class="row mt-2 mb-1">
+                                                    <hr style="width: 520px; border: 1px solid #848484;">
+                                                </div>
+
+                                                <div class="row">
+                                                    <p class="secgreentag">Clinics hours</p>
+                                                </div>
+                                                <div class="row">
+                                                    <p style="font-weight: 400;
+                    font-size: 16px;">Set time according to the doctor’s availability</p>
+                                                </div>
+                                                <div class="row ms-2">
+                                                    <div class="col-4">
+                                                        <p style="    font-weight: 600;
+                      font-size: 16px;">Selected Date: </p>
+                                                    </div>
+                                                    <div class="col ">
+                                                        <input type="text" class="form-control text-center" style="width: 140px;height: 35px;border: 1px solid #000000; margin-left: 8px;" readonly id="inputDate" name="dateSelected" required>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-4">
+                                                            <p style="    font-weight: 600;
+                          font-size: 16px;">Time Interval: </p>
+                                                        </div>
+                                                        <div class="row ms-5">
+                                                            <div class="col-3 ">
+                                                                <p style="font-weight: 600;">Per Patient: </p>
+                                                            </div>
+
+                                                            <div class="col-3">
+                                                                <select class="form-select" aria-label="select1" name="timeInterval" id='timeInterval' style="width: 140px; margin-left: 7px; border: 1px solid black;">
+                                                                <option value="00:30:00">30 mins</option>
+                                                                <option value="00:45:00">45 mins</option>
+                                                                <option value="01:00:00">1 hour</option>
+                                                                <option value="01:15:00">1 hour 15 mins</option>
+                                                                <option value="01:30:00">1 hour 30 mins</option>
+                                                                <option value="01:45:00">1 hour 45 mins</option>
+                                                                <option value="02:00:00">2 hours</option>
+                                                                </select>
+
+                                                            </div>
+                                                            <div class="col ms-3">
+
+                                                            </div>
+
+                                                        </div>
+                                                        <p style="    font-weight: 600;
+                      font-size: 16px;">Selected Time: </p>
+                                                    </div>
+                                                    <div class="row ms-5">
+                                                        <div class="col-3 ">
+                                                            <p style="font-weight: 600;">FROM: </p>
+                                                        </div>
+
+                                                        <div class="col-3">
+                                                            <input type="time" class="form-control text-center" style="width: 140px;height: 35px;border: 1px solid #000000" name="startTime" id='startTime' required>
+
+                                                        </div>
+                                                        <div class="col ms-3">
+
+                                                        </div>
+
+                                                    </div>
+
+
+                                                    <div class="row ms-5">
+                                                        <div class="col-3">
+                                                            <p style="font-weight: 600;">TO: </p>
+                                                        </div>
+                                                        <div class="col-3">
+                                                            <input type="time" class="form-control text-center " style="width: 140px;height: 35px;border: 1px solid #000000" name="endTime" id='endTime' required>
+
+                                                        </div>
+
+
+                                                    </div>
+
+                                                    <div class="row justify-content-end mt-3">
+                                                        <button type="button" class="btn btn-success btn me-3 " style="width: 110px; background-color: #FF0000; border-color: #FF0000;" data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit " class="btn btn-success btn" style="width: 110px;background: #29CC97;border-color: #29CC97;" id="Set" name="button" value="set">Set</button>
+                                                        <button type="submit " class="btn btn-success btn" style="width: 110px;background: #29CC97;border-color: #29CC97; display: none;" id="Update" name="button" value="update">Update</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="center">
+                        <div class="datepicker-here"></div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    <div class="row">
+
+        <div class="center">
+            <div class=" gchart mt-3">
+                <p class="availheadertag mt-3 ms-4 ">Number of Patients</p>
+                <select class="form-select float-end mt-3" aria-label="Default select example" id="appfilter2">
+    <option selected>This week</option>
+    <option value="1">This month</option>
+    <option value="2">This year</option>
+  </select>
+                <div class="chart-container mt-3">
+                    <canvas id="myChart"></canvas>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div id="modal-container"></div>
+
+
+<script>
+    $('#outdoctorfilter').val('<%=doctor_IDselect%>')
+    $(function() {
+        $('#acceptedsecapplist').hide();
+    });
+
+    $(function() {
+        $('#cansecapplist').hide();
+    });
+
+    $(document).ready(function() {
+        $("#prqs").click(function() {
+            $("#pendingsecapplist:hidden").show();
+            $("#acceptedsecapplist").hide();
+            $("#cansecapplist").hide();
+        });
+        $("#prqs").click(function() {
+            if ($('prqs').prop('checked') === false) {
+                $('#pendingsecapplist').hide();
+            }
+        });
+
+
+
+        $("#arqs").click(function() {
+            $("#acceptedsecapplist").show();
+            $("#pendingsecapplist").hide();
+            $("#cansecapplist").hide();
+        });
+        $("#arqs").click(function() {
+            if ($('arqs').prop('checked') === false) {
+                $('#acceptedsecapplist').hide();
+            }
+        });
+
+
+
+
+        $("#crqs").click(function() {
+            $("#cansecapplist").show();
+            $("#pendingsecapplist").hide();
+            $("#acceptedsecapplist").hide();
+        });
+        $("#crqs").click(function() {
+            if ($('crqs').prop('checked') === false) {
+                $('#cansecapplist').hide();
+            }
+        });
+
+    });
+
+    $('.datepicker-here').datepicker({
+        language: 'en',
+        inline: true
+    })
+
+    $('.datepicker-here2').datepicker({
+        language: 'en',
+        inline: true
+    })
+
+    $.get("get-calendar", function(data, status) {
+        let enabledDays = []
+        data.forEach(res => {
+            enabledDays.push(res.date2)
+        })
+        renderCalendar(enabledDays);
+        renderCalendar2(enabledDays);
+    });
+
+    const renderCalendar = (enabledDays) => {
+        $(function() {
+            $('.datepicker-here').datepicker({
+                dateFormat: 'mm/dd/yyyy',
+                onSelect: function(date) {
+                    let today = new Date()
+                    let changeFormat = today.toLocaleString('en-US', {
+                        year: '2-digit',
+                        month: '2-digit',
+                        day: '2-digit'
+                    });
+
+                    if (date <= changeFormat) {
+                        console.log('Past day')
+                        $('#dateChecker').css({
+                                'display': 'block'
+                            })
+                            /*
+                        $('#modal-container').empty()
+                        $('#modal-container').append(`<div class="modal fade" id="successmodalpatient" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-m modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-body " style="border: 1px solid green; border-radius: 5px; box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);">
+                <div class="row-col sucimage center" >
+                    <img src="/assets/exit.png" alt="" class="img-fluid" style="height: 115px;">
+                </div>
+                <div class="row mt-4 suctitle text-center">
+                    <h3>Selected a past date</h3>
+                </div>
+                <div class="row mt-2 text-center">
+                    <p class="para">Please select a valid date.</p>
+                </div>
+                <div class="row center">
+                    <button type="button" class="btn btn-success" style="border-radius:20px; ;width: 110px;background:  #32ba7c;border: #32ba7c;" data-bs-dismiss="modal" id="dismiss">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+`)
+                        $('#successmodalpatient').modal('show')
+                        */
+
+                    } else {
+                        $('#dateChecker').css({
+                            'display': 'none'
+                        })
+                        $('#inputDate').val(date)
+                    }
+
+                },
+                onRenderCell: function onRenderCell(date, cellType) {
+                    if (cellType == 'day') {
+                        var day = (date.getFullYear() + '-' + (('0' + (date.getMonth() + 1)).slice(-2)) + '-' + (('0' + date.getDate()).slice(-2)));
+                        var isDisabled = enabledDays.indexOf(day) == -1;
+                        return {
+                            disabled: !isDisabled
+                        }
+                    }
+                }
+            })
+        });
+
+    }
+
+    const renderCalendar2 = (enabledDays) => {
+        $(function() {
+            $('.datepicker-here2').datepicker({
+                dateFormat: 'mm/dd/yyyy',
+                onSelect: function(date) {
+                    let today = new Date()
+                    let changeFormat = today.toLocaleString('en-US', {
+                        year: '2-digit',
+                        month: '2-digit',
+                        day: '2-digit'
+                    });
+
+
+
+
+
+                    $.get("get_Set-Appointment", {
+                        Dates: date
+                    }, function(data, status) {
+                        $('#spy').val(data.doctor_schedule_ID)
+                        $('#timeInterval').val(data.doctor_schedule_Interval)
+                        $('#maxPatient').val(data.doctor_schedule_max_patient)
+                        $('#startTime').val(data.doctor_schedule_start_time)
+                        $('#endTime').val(data.doctor_schedule_end_time)
+
+                    });
+                    $('#inputDate').val(date)
+
+
+                },
+                onRenderCell: function onRenderCell(date, cellType) {
+                    if (cellType == 'day') {
+                        var day = (date.getFullYear() + '-' + (('0' + (date.getMonth() + 1)).slice(-2)) + '-' + (('0' + date.getDate()).slice(-2)));
+                        var isDisabled = enabledDays.indexOf(day) == -1;
+
+                        return {
+                            disabled: isDisabled,
+                        }
+                    }
+                }
+            })
+        });
+
+    }
+
+
+    $(document).ready(function() {
+        $("#updateSchedule").click(function() {
+            $('#datepicker-here').css({
+                'display': 'none'
+            })
+            $('.datepicker-here2').css({
+                'display': 'block'
+            })
+            $('#updateSchedule').css({
+                'display': 'none'
+            })
+            $('#setSchedule').css({
+                'display': 'block'
+            })
+            $('#Set').css({
+                'display': 'none'
+            })
+            $('#Update').css({
+                'display': 'block'
+            })
+            $('#dateChecker').css({
+                'display': 'none'
+            })
+            $('#legend_1').attr("src", "/assets/whitec.png");
+            $('#legend_2').attr("src", "/assets/partiallybooked.png");
+
+        });
+    });
+
+    $(document).ready(function() {
+        $("#setSchedule").click(function() {
+            $('#datepicker-here').css({
+                'display': 'block'
+            })
+            $('#updateSchedule').css({
+                'display': 'block'
+            })
+            $('.datepicker-here2').css({
+                'display': 'none'
+            })
+            $('#setSchedule').css({
+                'display': 'none'
+            })
+            $('#Set').css({
+                'display': 'block'
+            })
+            $('#Update').css({
+                'display': 'none'
+            })
+            $('#legend_1').attr("src", "/assets/partiallybooked.png");
+            $('#legend_2').attr("src", "/assets/whitec.png");
+            $('#spy').val('')
+            $('#timeInterval').val('')
+            $('#maxPatient').val('')
+            $('#startTime').val('')
+            $('#endTime').val('')
+            $('#inputDate').val('')
+        });
+    });
+
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+
+            options: {
+                responsive: true,
+            },
+            datasets: [{
+                data: [15, 20, 25, 30, 40, 50, 60],
+                label: "TOTAL",
+                borderColor: "rgb(62,149,205)",
+                backgroundColor: "rgb(62,149,205,0.1)",
+            }, {
+                data: [10, 8, 6, 4, 9, 11, 9],
+                label: "PENDING",
+                borderColor: "rgba(148, 148, 148, 1)",
+                backgroundColor: "rgba(236, 236, 236, 1)",
+
+            }, {
+                data: [10, 30, 34, 30, 23, 50, 60],
+                label: "ACCEPTED",
+                borderColor: "rgba(56, 132, 64, 1)",
+                backgroundColor: "rgba(202, 255, 207, 1)",
+            }, {
+                data: [6, 3, 2, 2, 7, 0, 16],
+                label: "REJECTED",
+                borderColor: "rgba(255, 0, 0, 1)",
+                backgroundColor: "rgba(255, 182, 182, 1)",
+            }]
+        },
+
+    });
+</script>

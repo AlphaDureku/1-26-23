@@ -1,0 +1,74 @@
+<section id="bar2">
+    <div class="progresses">
+
+        <div class="barsteps" style=" background: rgba(36, 183, 233, 1);">
+            <label>1</label>
+        </div>
+
+        <span class="barline" style=" background: rgba(36, 183, 233, 1);"></span>
+        <div class="barsteps" style=" background: rgba(36, 183, 233, 1);">
+            <label>2</label>
+        </div>
+
+        <span class="barline"></span>
+        <div class="barsteps">
+            <label>3</label>
+        </div>
+
+    </div>
+    </div>
+</section>
+<form action="/book-appointment/search-doctor">
+    <section id=searchdoctor>
+        <div class="row p-4 mb-4 g-2  d-flex justify-content-center ">
+            <div class="tagtitle ">Search Doctor </div>
+
+            <div class=" col-auto pt-3">
+                <div class="form-outline l-name ">
+                    <input type="search" id="form1" class="form-control doctor " placeholder="Doctor's Last Name" aria-label="Search" name="doctor_Lname" />
+                </div>
+            </div>
+            <div class=" col-auto pt-3  ">
+                <div class=" form-outline f-name ">
+                    <input type="search" id="form1" class="form-control doctor" placeholder="Doctor's First Name" aria-label="Search" name="doctor_Fname" />
+                </div>
+            </div>
+            <div class=" col-auto pt-3 ">
+                <select class="form-select" aria-label="select1" name="specialization" id="specialization_Query">
+                <option value="" selected hidden>Select Specialization</option>
+
+            </select>
+            </div>
+            <div class=" col-auto   pt-3 ">
+                <select class="form-select" aria-label="select2" name="doctor_HMO" id="HMO_Query">
+                <option value="" selected hidden>Select HMO Accreditation</option>
+
+            </select>
+            </div>
+            <div class="  col-auto pt-3">
+                <button type="submit" class="btn btn-success btn " style="width: 110px;">Search</button>
+                <button type="reset" class="btn btn-success btn me-3 " style="width: 110px; background-color: #FF0000; border-color: #FF0000;">Clear</button>
+            </div>
+
+        </div>
+</form>
+<%-include('../partials/chooseDoctor.ejs')%>
+
+
+
+
+
+
+
+
+
+
+
+    </section>
+
+
+    <script>
+        $("#viewsched").click(function() {
+            $("#doctormodal").modal("show");
+        });
+    </script>

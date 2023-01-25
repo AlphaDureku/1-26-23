@@ -1,0 +1,114 @@
+   #outdoctorfilter{
+        box-shadow: none;
+        font-weight: 600;
+        font-size: 16px;
+        width: 380px;
+        height: 45px;
+        color: #434343;
+        margin-bottom: auto;    
+        margin-right: 30px;
+        border-radius: 15px;
+        border: none;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+
+
+     
+    }
+    
+
+    .notifydoctor{
+   
+   
+        width: 655px;
+        height: 195px;
+        background: #FFFFFF;
+        border-radius: 20px; 
+       
+    }
+
+
+
+
+
+.eyecon:hover{
+    color:#333;
+
+
+
+}
+
+
+
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}
+
+
+.addsecinput{
+     
+
+    font-size: 15px;
+    padding-left: 20px;
+    color: #000;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+
+
+
+#searchbardoc{
+    border-radius: 90px;
+    width: 220px;
+    height: 45px;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid #24B7E9;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    background-image: url("searchicon.png");
+    background-repeat: no-repeat;
+    background-position: 5%;
+    padding-left: 60px;
+    float: right;
+
+}
+
+
+.passgrpfloat{
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 2px solid #24B7E9;
+    width: 340px;
+    outline: none;
+    font-size: 15px;
+    box-shadow: none;
+ 
+}
+
+#rbord{
+    border: none;
+    box-shadow: none;
+    margin-left: 17px;
+    background: none;
+
+}
+
+
+.rbordicon{
+  background: none;
+  border: none;
+}
+
+.adpassgrpfloat{
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 2px solid #949494;
+    width: 340px;
+    outline: none;
+    font-size: 15px;
+    box-shadow: none;
+ 
+}
+

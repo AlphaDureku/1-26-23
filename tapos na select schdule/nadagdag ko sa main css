@@ -1,0 +1,10 @@
+#note {
+    box-sizing: border-box;
+    width: 1100px;
+    height: 95px;
+    left: 341px;
+    top: 411px;
+    background: rgba(132, 132, 132, 0.5);
+    border: 1px solid #848484;
+    border-radius: 10px;
+}

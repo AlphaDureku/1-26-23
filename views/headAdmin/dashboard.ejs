@@ -1,0 +1,324 @@
+<div class="container-fluid">
+    <div class="row flex-nowrap">
+        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 " id="adleftborderside">
+            <div class="d-flex flex-column lign-items-center align-items-sm-start sidebarcontent px-3 pt-2 text-white min-vh-100">
+                <ul class="collapse show nav flex-column center" id="submenu1" data-bs-parent="#menu">
+
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="col-7 middleside  ">
+            <form action="searchDoctor" method="get">
+                <div class="searcwrapper mt-4 ms-4">
+                    <input type="search" class="form-control " placeholder="Search doctor..." aria-p="Search" aria-describedby="search-addon" id="searchbardes" name="doctorSearchInput" />
+                </div>
+            </form>
+            <div class="container appointmentsbox mt-4">
+                <div class="row">
+                    <select class="form-select float-end ms-3" aria-label="Default select example" id="adminfilter">
+                    <option selected>Available Doctors</option>
+                     </select>
+                </div>
+                <!--AVAILABLE DOCTOR-->
+                <div class="container mt-4 " id="adpendingsecapplist">
+                    <%-include('../partials/availDoctors')%>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col rightside ">
+            <div class="row">
+                <div class=" container  adsetsched mt-5   flex-column">
+                    <div class="row">
+                        <p class="availheadertag mt-4 ms-3 mb-1" style=" font-family: 'Montserrat'; font-weight: 600; font-size: 19px;">Doctors with Secretary</p>
+                    </div>
+                    <div class="row">
+                        <%let counter= 0%>
+                            <%withNurse.forEach(result=>{%>
+                                <%counter++%>
+                                    <%})%>
+                                        <p class="availheadertag ms-4" style="font-family: 'Montserrat'; font-weight: 600; font-size: 18px; color: #848484;">TOTAL:
+                                            <%=counter%>
+                                        </p>
+                    </div>
+                    <div class=" row center">
+
+                        <div class="container " id="adwow">
+                            <div class="accordion mt-3 mb-2 withsecretary " id="parentacc">
+                                <!--listofsecwithdoc-->
+                                <%withNurse.forEach(result=>{%>
+                                    <div class="accordion-item withsecretaryitm ">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button withsecretarycolor" type="button" data-bs-toggle="collapse" data-bs-target="#<%=result.doctor_ID%>" aria-expanded="true" aria-controls="collapseOne">
+                                   Dr. <%=result.DLname%> <%=result.DFname[0]%>.
+                                      </button>
+                                        </h2>
+                                        <div id="<%=result.doctor_ID%>" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#parentacc">
+                                            <div class="accordion-body">
+                                                <div class="row">
+                                                    <div class="col ">
+                                                        <p style=" font-weight: 600; font-size: 14px; color: #848484;">
+                                                            Secretary:
+                                                            <%=result.nurse_Fname%>
+                                                                <%=result.nurse_Lname%>
+                                                        </p>
+                                                    </div>
+                                                    <div class="col ">
+                                                        <p class="updateb center" type="button" data-bs-toggle="modal" data-bs-target="#<%=result.doctor_ID%>_update">
+                                                            UPDATE
+                                                        </p>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <%})%>
+
+
+
+
+                            </div>
+                            <!--listofsecwithdoc-->
+                            <!--modal-->
+                            <%withNurse.forEach(result=>{%>
+                                <div class="modal modal-lg" tabindex="-1" id="<%=result.doctor_ID%>_update">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content" style=" border: 1px solid #000000; border-radius: 10px;">
+                                            <div class="modal-body">
+                                                <div class="container">
+                                                    <div class="row mb-3 mt-2" style="text-align: center;">
+                                                        <H5 style="font-weight: 600; font-size: 25px; color: #434343; text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">PAIRING</h5>
+                                                    </div>
+                                                    <form method="POST" action="match">
+                                                        <div class="row mb-3">
+                                                            <div class="col">
+                                                                <select class="form-select m-auto" aria-label="Default select example" id="whole1" name="doctorPair">
+                                                                <option value="<%=result.doctor_ID%>" >Dr. <%=result.DLname%></option>
+                                                            </select>
+                                                            </div>
+                                                            <div class="col">
+                                                                <div class="center">
+                                                                    <select class="form-select m-auto" aria-label="Default select example" id="whole1" name="nursePair">
+                                                                    <%nurseList.forEach(res=>{%>
+                                                                        <option value="<%=res.doctor_Secretary_ID%>" ><%=res.doctor_Secretary_first_name%> <%=res.doctor_Secretary_last_name%></option>
+                                                                    <%})%>
+                                                                  </select>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="row center">
+                                                            <button id='match' style="text-align: center; " type="submit" class="center success">
+                                                                <p style="font-weight: 600; font-size: 22px;" class="m-auto">MATCH</p>
+                                                            </button>
+
+                                                        </div>
+                                                    </form>
+                                                    <div style="text-align: center; display: none;" class="center success">
+                                                        <div class="row mt-3 center" style="width: 741px; height: 25px; background: #2F9D44; border: 1px solid rgba(0, 0, 0, 0.5); border-radius: 10px; margin-left: 5px;">
+                                                            <p style="font-weight: 600; font-size: 15px; color: #FFFFFF;" class="m-auto">Match Complete!</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <%})%>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+            <div class="row ">
+                <div class=" container downhere mt-3 flex-column">
+
+                    <div class="container mt-3 mb-3 AddDoctor " input="button" data-bs-toggle="modal" data-bs-target="#inputdoc1">
+                        <div class="row">
+                            <div class="col-4 ms-3 ">
+                                <a> <img src="/assets/baddcon.png" alt="" style="height: 28px;float: right;"></a>
+                            </div>
+                            <div class="col ">
+                                <label style="font-weight: 600; font-size: 20px;float: left;">ADD DOCTOR</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container mt-3 mb-3 AddDoctor " input="button" data-bs-toggle="modal" data-bs-target="#inputdoc2">
+                        <div class="row">
+                            <div class="col-4 ms-3 ">
+                                <a> <img src="/assets/baddcon.png" alt="" style="height: 28px;float: right;"></a>
+                            </div>
+                            <div class="col ">
+                                <label style="font-weight: 600; font-size: 20px;float: left;">ADD SECRETARY</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Modal for adding doctor-->
+                    <div class="modal modal-lg" tabindex="-1" id="inputdoc1">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content" style=" border: 1px solid #000000; border-radius: 10px;">
+                                <div class="modal-body">
+                                    <div class="container">
+                                        <div class="row mb-3 mt-2 mb-4" style="text-align: center;">
+                                            <H5 style="font-weight: 600; font-size: 25px; color: #434343; text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">ADD DOCTOR</h5>
+                                        </div>
+                                        <div class="ms-3 me-3 mb-3">
+                                            <form method="POST" action="addDoctor">
+                                                <div class="row justify-content-center ">
+                                                    <div class="col">
+                                                        <div class="form-floating mb-3 ">
+                                                            <input type="text" class="form-control " id="addinput" placeholder="First Name" name="doctor_Fname" required>
+                                                            <label for="addinput" class="staddinput">First Name</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-floating mb-3 ">
+                                                            <input type="text" class="form-control " id="addinput" placeholder="Last Name" name="doctor_Lname" required>
+                                                            <label for="addinput" class="staddinput">Last Name</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="form-floating mb-3 ">
+                                                            <input type="text" class="form-control " id="addinput" placeholder="Room" name="email" required>
+                                                            <label for="addinput" class="staddinput">Email </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <select class="form-select text-start " aria-label="Default select example" id="addselecthmo" name="gender" required>
+                                                          <option value="M">Male</option>
+                                                          <option value="F">Female</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="form-floating mb-3 ">
+                                                            <input type="tel" class="form-control " id="addinput" placeholder="Contact Number" name="contact" value="+63" required>
+                                                            <label for="addinput" class="staddinput">Contact Number</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-floating mb-3 ">
+                                                            <input type="text" class="form-control " id="addinput" placeholder="Room" name="room" required>
+                                                            <label for="addinput" class="staddinput">Room </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <select class="form-select text-start " aria-label="Default select example" id="addselecthmo" name="specialization" required>
+                                                        <%spe.forEach(data=>{%>
+                                                                  <option value="<%=data.specialization_ID%>"><%=data.specialization_Name%></option>
+                                                        <%})%>
+                                                          
+                
+                                                          </select>
+                                                    </div>
+                                                    <div class="col">
+                                                        <select class="form-select text-start " aria-label="Default select example" id="addselecthmo" name="hmo" required>
+                                                        <%hmo.forEach(data=>{%>
+                                                                  <option value="<%=data.HMO_ID%>"><%=data.HMO_Name%></option>
+                                                        <%})%>
+                                                          </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row center mt-4">
+                                                    <button id="addfinal" style="text-align: center;" type="submit" class="center">
+                                                        <p style="font-weight: 600; font-size: 22px;" class="m-auto">ADD</p>
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
+                        </div>
+
+
+                    </div>
+
+                    <!--Modal for adding secretary-->
+                    <div class="modal modal-lg" tabindex="-1" id="inputdoc2">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content" style=" border: 1px solid #000000; border-radius: 10px;">
+                                <div class="modal-body">
+                                    <div class="container">
+                                        <div class="row mb-3 mt-2 mb-4" style="text-align: center;">
+                                            <H5 style="font-weight: 600; font-size: 25px; color: #434343; text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">ADD SECRETARY</h5>
+                                        </div>
+                                        <div class="ms-3 me-3 mb-3">
+                                            <form action="addSec" method="POST">
+                                                <div class="row ">
+                                                    <div class="col">
+                                                        <div class="form-floating mb-3 ">
+                                                            <input type="text" class="form-control " id="addinput" placeholder="First Name" name="Fname">
+                                                            <label for="addinput" class="staddinput">First Name</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-floating mb-3 ">
+                                                            <input type="text" class="form-control " id="addinput" placeholder="Last Name" name="Lname">
+                                                            <label for="addinput" class="staddinput">Last Name</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mt-2 ">
+                                                    <div class="col">
+                                                        <div class="form-floating mb-3 ">
+                                                            <input type="text" class="form-control " id="addinput" placeholder="Username" name="username">
+                                                            <label for="addinput" class="staddinput">Username</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-floating mb-3 ">
+                                                            <input type="password" class="form-control " id="addinput" placeholder="Password" name="password">
+                                                            <label for="addinput" class="staddinput">Password</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="row center mt-4">
+                                                    <button id="addfinal" style="text-align: center;" type="submit" class="center">
+                                                    <p style="font-weight: 600; font-size: 22px;" class="m-auto">ADD</p>
+                                                </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <script>
+                $(".success").click(function() {
+                    $('.success').css({
+                        'display': 'block'
+                    });
+                })
+            </script>

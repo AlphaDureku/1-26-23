@@ -1,0 +1,22 @@
+<% if(locals.queriedPatients != null){%>
+    <%queriedPatients.rows.forEach(data=>{%>
+
+        <div class="container mt-4 trackercard">
+            <div class="row ms-3 mt-3">
+                <p style="font-weight: 600;">
+                    <%=data.patient_first_name%>
+                        <%=data.patient_last_name%>
+                </p>
+            </div>
+            <div class="row ms-3 ">
+                <p>Patient (
+                    <%=data.patient_gender%>)</p>
+            </div>
+            <div class="row ms-4">
+                <button type="button " class="btn btn-success me-3" style="border-radius:10px ;width: 194px;height: 35px;background: #388440;" onclick="window.location.href='/Manage-Appointments/my-appointments/<%=data.patient_ID%>'">View Appointments</button>
+                <button type="button" class="btn btn-success" style="border-radius:10px ;width: 194px;height: 35px;" onclick="window.location.href='/Manage-Appointments/edit-patient/<%=data.patient_ID%>'">Edit Personal Info</button>
+            </div>
+        </div>
+        <%})%>
+
+            <%}%>

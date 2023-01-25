@@ -1,0 +1,135 @@
+<% if(locals.queriedDoctors != null || locals.queriedSchedule != null){%>
+
+    <form action="/book-appointment/choose-schedule" method="GET">
+        <div class="center m-5">
+            <div class="grid-container2">
+                <%if(queriedDoctors.length===0){%>
+                    No doctors Found
+                    <%}%>
+                        <%queriedDoctors.forEach(data=>{%>
+                            <div>
+                                <div class="doctor-flexbox-container2">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="doctor-flexbox-Info">
+                                                <div class="Lname">
+                                                    <%=data.doctor_last_name%>
+                                                </div>
+                                                <div class="Fname">
+                                                    <%=data.doctor_first_name%>
+                                                </div>
+                                                <div class="specialization">
+                                                    <%=data.specialization%>
+                                                </div>
+                                                <div class="HMO_choosedoctor">
+                                                    <div class="HMO_Head">HMO Accreditation</div>
+                                                    <%const string = data.HMO_Name%>
+                                                        <%const res = string.split(',')%>
+                                                            <%for(i=0; i<3; i++){%>
+                                                                <%=res[i]%><br>
+                                                                    <%}%>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col align-content-end">
+                                            <input class="form-check-input" type="checkbox" name="doctor" value="<%=data.doctor_ID%>" id="checkselect" style="height: 40px; width: 40px;float: right;">
+                                            </label>
+                                        </div>
+
+                                        <div class="doctor-flexbox-view">
+                                            <hr>
+                                            <label id="viewsched" class="pointer" data-bs-toggle="modal" data-bs-target="#doctorModal<%=data.doctor_ID%>">View Schedule</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <%})%>
+
+            </div>
+            <button type="submit" class="btn btn-success btn " style="width: 110px;">Proceed</button>
+            <div>
+            </div>
+
+    </form>
+
+    <section id="doctor-profile">
+        <div class="center">
+            <% queriedDoctors.forEach(data=>{%>
+                <div class="modal modal-lg" tabindex="-1" id="doctorModal<%=data.doctor_ID%>">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-body ">
+                                <div class="container pt-5" style=" border:  solid #2F9D44; border-radius: 20px; ">
+                                    <div class="row text-center mb-5">
+                                        <H5 style="color: #388440; font-size: 25px;">PROFILE</H5>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="box-sizing: border-box;">
+                                                <p id="picture"></p>
+                                            </div>
+                                        </div>
+                                        <div class="col mt-5">
+                                            <h6 class="doctorname mb-4" style="font-weight: 700;">Dr.
+                                                <%=data.doctor_last_name%>
+                                            </h6>
+                                            <p class="data mb-2">Specialization: <span class="text" style="font-weight: bold;">  <%=data.specialization%></span class="text" id="Bold"></p>
+                                        </div>
+                                     </div>
+                          <br>
+                          <hr class="style1">
+                          <br>
+                          <div class="row">
+                              <div class="col" 
+                              style="margin-left: 60px; 
+                              margin-top: 15px;
+                              margin-bottom: 40px;">
+                                  <p class="data ">Name: <span class="text" style="font-weight: bold;">  <%=data.doctor_first_name%> <%=data.doctor_last_name%></span></p>
+                                            <p class="data">Gender: <span class="text" style="font-weight: bold;"><%=data.doctor_gender%></span></p>
+                                        </div>
+                                        <div class="col" style="  margin: 15px;">
+                                            <p class="data">Room: <span class="text" style="font-weight: bold;"><%=data.doctor_room%></p>
+                                  <p class="data">Contact: <span class="text" style="font-weight: bold;"><%=data.doctor_contact_number%></span class="text" id="Bold"></p>
+                                  <p class="data">HMO Accreditation: <span class="text" style="font-weight: bold;"><br><%const string = data.HMO_Name%>
+                                    <%const res = string.split(',')%>
+                                        <%for(i=0; i<3; i++){%>
+                                            <%=res[i]%><br>
+                                                <%}%></span class="text" id="Bold"></p>
+                              </div>
+                              </div>
+                          <br>
+                          <hr class="style1">
+                                <br>
+                                <div class="row">
+                                <h6 class="text" id="border0">Available Schedule</h6>
+                                <table class="table table-striped table-hover text-center">
+                                    <thead>
+                                        <tr>
+                                            <td>Date</td>
+                                            <td>Day</td>
+                                            <td>Time</td>
+                                        </tr>
+                                    </thead>
+                                    <%queriedSchedule.forEach(sched=>{%>
+                                        <%if(data.doctor_ID == sched.doctor_ID){%>
+                                            <tr>
+                                                <td><%=sched.date%></td>
+                                                <td><%=sched.day%></td>
+                                                <td><%=sched.start%> - <%=sched.end%></td>
+                                            </tr>
+                                        <%}%>
+                                    <%})%>
+                            
+                                  </table>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                 </div>
+             </div>
+             <% })%>
+                                        </div>
+    </section>
+
+    <%}%>

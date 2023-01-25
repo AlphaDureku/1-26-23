@@ -1,0 +1,36 @@
+<div class="container adcbox adfcover">
+    <div class="row ">
+        <div class="col adsectag">
+            <p style="font-family: Inter; font-weight: 700; font-size: 28px;  color: #FFFFFF; text-align: left;">Making appointments
+                <br> easy for you.<img src="/assets/medlogo.png" height="40" style="margin-bottom: 19px;"> </p>
+        </div>
+        <div class="col adlogtag">
+            <div class="box-sizing: border-box;">
+                <p id="adpicture">A</p>
+            </div>
+            <div class="center">
+                <div class="form-floating mb-3 mt-3">
+                    <input type="text" class="form-control " id="adfloatingInput" placeholder="Username" name="username" required>
+                    <label for="adfloatingInput" id="adusnamelabel">Username</label>
+                </div>
+            </div>
+            <div class="center">
+                <div class="form-floating mt-2">
+                    <input type="password" class="form-control" id="adfloatingPassword" placeholder="Password" name="password" required>
+                    <label for="adfloatingPassword" id="adspasslabel">Password</label>
+                </div>
+
+                <div class="row" style="position: absolute; display: none;" id="errorDisplay">
+                    <p style="color: red; text-align: center; margin: 5% 0 0 75%; font-weight: 600;  left: 8%;">Invalid credentials</p>
+                </div>
+                <div class="row" style="position: absolute; display: none;" id="successDisplay">
+                    <p style="color: #16b256; text-align: center; margin: 5% 0 0 125%; font-weight: 600;  left: 8%;">Logging in...</p>
+                </div>
+
+            </div>
+            <div class="center mt-5">
+                <button type="submit" class="btn btn-success btn" id="adsignin">Login</button>
+            </div>
+        </div>
+    </div>
+</div>

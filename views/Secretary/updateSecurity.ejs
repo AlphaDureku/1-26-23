@@ -1,0 +1,129 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer"
+/>
+
+<div class="col managemiddleside  ">
+
+    <div class="row mt-5 ms-3">
+
+        <div class="col-2 mt-5 ">
+            <div class="box-sizing: border-box; ">
+                <p id="secpicture"></p>
+            </div>
+        </div>
+        <div class="col mt-5 ">
+            <div class="row mt-5">
+                <p style="font-weight: 600;
+            font-size: 25px;
+            color: #000000;">
+                    <%=adminInfo.doctor_Secretary_first_name%>
+                        <%=adminInfo.doctor_Secretary_last_name%>
+
+                </p>
+            </div>
+            <div class="row ">
+                <p style="font-weight: 500;
+                font-size: 20px;
+                color: #848484;">
+                    Secretary</p>
+            </div>
+        </div>
+    </div>
+    <div class="row center mt-4 mb-4">
+        <hr class="mproline">
+    </div>
+
+    <div class="row ms-5">
+        <div class="col-2 ms-5">
+            <p style="font-weight: 600;
+        font-size: 21px;
+        color: #000000;">
+                Security</p>
+        </div>
+    </div>
+
+
+    <div class="row container mt-4 " style="margin-left: 180px;padding-right: 690px;">
+        <div class="col">
+            <p style="font-weight: 400;
+            font-size: 17px;
+            color: #848484;">
+                Enter Password:
+            </p>
+        </div>
+        <div class="col">
+            <div class="input-group passwrap" id="show_hide_password">
+                <input class="form-control edituserp " type="password" name="currentPassword">
+                <div class="input-group-text center ">
+                    <a href=""><span class="  fa fa-eye-slash eyecon" aria-hidden="true"></span></a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row container mt-4 " style="margin-left: 180px;padding-right: 690px;">
+        <div class="col">
+            <p style="font-weight: 400;
+            font-size: 17px;
+            color: #848484;">
+                Enter New Password:
+            </p>
+        </div>
+        <div class="col ">
+            <div class="input-group passwrap" id="show_hide_password">
+                <input class="form-control edituserp " type="password" name="newPassword">
+                <div class="input-group-text center ">
+                    <a href=""><span class="  fa fa-eye-slash eyecon" aria-hidden="true"></span></a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row container mt-4 " style="margin-left: 180px;padding-right: 690px;">
+        <div class="col">
+            <p style="font-weight: 400;
+            font-size: 17px;
+            color: #848484;">
+                Confirm Password:
+            </p>
+        </div>
+        <div class="col">
+            <div class="input-group passwrap" id="show_hide_password">
+                <input class="form-control edituserp " type="password" name="retypePassword">
+                <div class="input-group-text center ">
+                    <a href=""><span class="  fa fa-eye-slash eyecon " aria-hidden="true"></span></a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row container mt-5" style="margin-left:180px; margin-right: auto;">
+        <p style="font-weight: 400;
+            font-size: 17px;
+            color: #000000;">
+            Note: Password must contain at least 8 characters, one number [1-9], one special character [@$!%*#?&]
+        </p>
+
+    </div>
+    <div class=" row" style="margin-left: 1250px;margin-top: 30px;margin-bottom: auto; margin-right: auto;">
+        <button type="button " class="btn btn-success btn " style="width: 140px;" id="secu">Save Changes</button>
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function() {
+        $("#show_hide_password a").on('click', function(event) {
+            event.preventDefault();
+            if ($('#show_hide_password input').attr("type") == "text") {
+                $('#show_hide_password input').attr('type', 'password');
+                $('#show_hide_password i').addClass("fa-eye-slash");
+                $('#show_hide_password i').removeClass("fa-eye");
+            } else if ($('#show_hide_password input').attr("type") == "password") {
+                $('#show_hide_password input').attr('type', 'text');
+                $('#show_hide_password i').removeClass("fa-eye-slash");
+                $('#show_hide_password i').addClass("fa-eye");
+            }
+        });
+    });
+</script>
