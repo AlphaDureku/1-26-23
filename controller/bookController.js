@@ -58,7 +58,7 @@ exports.compareOTP = async(req, res) => {
         Patient.patientList = req.session.UserPatients
         Patient.hasHistory = true
     }
-    if (Patient.inputOTP == /*req.session.Patient.OTP*/ 1) {
+    if (Patient.inputOTP == req.session.Patient.OTP) {
         Patient.isVerified = true
     }
     console.log(Patient)
