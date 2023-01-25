@@ -222,6 +222,7 @@
                                                 <div class="row">
                                                     <div class="col">
                                                         <select class="form-select text-start " aria-label="Default select example" id="addselecthmo" name="specialization" required>
+                                                            <option value="" selected hidden>Select Specialization</option>
                                                         <%spe.forEach(data=>{%>
                                                                   <option value="<%=data.specialization_ID%>"><%=data.specialization_Name%></option>
                                                         <%})%>
@@ -231,6 +232,7 @@
                                                     </div>
                                                     <div class="col">
                                                         <select class="form-select text-start " aria-label="Default select example" id="addselecthmo" name="hmo" required>
+                                                            <option value="" selected hidden>Select HMO</option>
                                                         <%hmo.forEach(data=>{%>
                                                                   <option value="<%=data.HMO_ID%>"><%=data.HMO_Name%></option>
                                                         <%})%>

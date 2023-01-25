@@ -63,7 +63,7 @@
                                                 <p style="font-weight: 600;
                 
                 font-size: 25px;
-                color: #000000;">Set availability</p>
+                color: #000000;" id="calendarHead">Set availability</p>
                                             </div>
                                         </div>
                                         <div class="row mt-3 mb-2 ">
@@ -370,7 +370,6 @@
         });
 
     }
-
     const renderCalendar2 = (enabledDays) => {
         $(function() {
             $('.datepicker-here2').datepicker({
@@ -382,10 +381,6 @@
                         month: '2-digit',
                         day: '2-digit'
                     });
-
-
-
-
 
                     $.get("get_Set-Appointment", {
                         Dates: date
@@ -442,7 +437,7 @@
             })
             $('#legend_1').attr("src", "/assets/whitec.png");
             $('#legend_2').attr("src", "/assets/partiallybooked.png");
-
+            $('#calendarHead').text('Update Availability')
         });
     });
 
@@ -474,6 +469,7 @@
             $('#startTime').val('')
             $('#endTime').val('')
             $('#inputDate').val('')
+            $('#calendarHead').text('Set Availability')
         });
     });
 
