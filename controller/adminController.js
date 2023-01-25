@@ -156,9 +156,13 @@ exports.notifyDoctorOnAppointment = async(req, res) => {
     try {
         const email = await doctor.getDoctorContact(req.body.doctor_ID)
         const appointmentsTodayWith = await admin.getAppointmentsToday(req.body.doctor_ID, req.body.date)
-        console.log(appointmentsTodayWith)
-        notifyDoctor(email.email, appointmentsTodayWith)
-        res.end()
+        if (appointmentsTodayWith.length != 0) {
+            notifyDoctor(email.email, appointmentsTodayWith)
+            res.end()
+        } else {
+            res.send('error')
+        }
+
     } catch (err) {
         res.send('error')
     }
@@ -169,13 +173,17 @@ exports.notifyPatientsOnAppointment = async(req, res) => {
         const phoneNumbers = [];
         const messageBody = [];
         const patientAppointments = await doctor.fetchDoctorPatientAppointmentsThatDate(req.session.doctor_ID, req.body.date)
-        patientAppointments.forEach(patient => {
-            let message = `Good Day ${patient.patient_Fname}, Manila Medical Center would like to remind you of your appointment for today at ${patient.start} to ${patient.end}`
-            phoneNumbers.push(patient.contact)
-            messageBody.push(message)
-        })
-        sendbulkSMS(phoneNumbers, messageBody)
-        res.send('success')
+        if (patientAppointments.length != 0) {
+            patientAppointments.forEach(patient => {
+                let message = `Good Day ${patient.patient_Fname}, Manila Medical Center would like to remind you of your appointment for today at ${patient.start} to ${patient.end}`
+                phoneNumbers.push(patient.contact)
+                messageBody.push(message)
+            })
+            sendbulkSMS(phoneNumbers, messageBody)
+            res.send('success')
+        } else {
+            res.send('error')
+        }
     } else {
         res.send('error')
     }
@@ -186,13 +194,17 @@ exports.notifyPatientOnLate = async(req, res) => {
         const phoneNumbers = [];
         const messageBody = [];
         const patientAppointments = await doctor.fetchDoctorPatientAppointmentsThatDate(req.session.doctor_ID, req.body.date)
-        patientAppointments.forEach(patient => {
-            let message = `Good Day ${patient.patient_Fname}, We would like to notify you that the doctor will be running late, please bear with us`
-            phoneNumbers.push(patient.contact)
-            messageBody.push(message)
-        })
-        sendbulkSMS(phoneNumbers, messageBody)
-        res.send('success')
+        if (patientAppointments.length != 0) {
+            patientAppointments.forEach(patient => {
+                let message = `Good Day ${patient.patient_Fname}, We would like to notify you that the doctor will be running late, please bear with us`
+                phoneNumbers.push(patient.contact)
+                messageBody.push(message)
+            })
+            sendbulkSMS(phoneNumbers, messageBody)
+            res.send('success')
+        } else {
+            res.send('error')
+        }
     } else {
         res.send('error')
     }
