@@ -54,7 +54,7 @@ exports.getOneDoctor2 = async function(doctor_ID) {
         raw: true,
         attributes: [
             [Sequelize.col('doctor_schedule_ID'), 'doctor_schedule_ID'],
-            [Sequelize.fn('date_format', Sequelize.col('doctor_schedule_date'), '%b %e, %Y'), 'day'],
+            [Sequelize.fn('date_format', Sequelize.col('doctor_schedule_date'), '%W'), 'day'],
             [Sequelize.fn('date_format', Sequelize.col('doctor_schedule_date'), '%b %e, %Y'), 'date'],
             [Sequelize.fn('date_format', Sequelize.col('doctor_schedule_date'), '%Y/%m/%d'), 'date2'],
             [Sequelize.col('doctor_schedule_max_patient'), 'max'],

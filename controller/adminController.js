@@ -495,3 +495,10 @@ async function sendbulkSMS(phoneNumbers, messageBody) {
 
     }
 }
+
+exports.checkSession = function(req, res, next) {
+    if (!req.session.req.session.sec_ID) {
+        return res.status(401).send({ error: 'Unauthorized, Your session has expired. Please re-login' });
+    }
+    next();
+}

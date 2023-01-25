@@ -5,77 +5,15 @@ const mail = require('nodemailer')
 const insert = require('../Models/Database_Queries/insert_query')
 const uuid = require('uuid')
 
-let DoctorParams = [{
-        firstName: "Squidward",
-        lastName: "Tentacles",
-        email: 'templanzamark2002@gmail.com',
-        contact_number: "09659546446",
-        room: 'ABC-205',
-        gender: 'M',
-        dateOfBirth: '2002-01-02',
-        HMO_IDs: [2, 6, 8],
-        specialization_ID: 4
-    },
-    {
-        firstName: "Spongebob",
-        lastName: "Squarepants",
-        email: 'templanzamarktemp02@gmail.com',
-        contact_number: "09984416526",
-        room: 'ABC-206',
-        gender: 'M',
-        dateOfBirth: '1994-01-02',
-        HMO_IDs: [2, 5, 7],
-        specialization_ID: 1
-    }, {
-        firstName: "Eugene",
-        lastName: "Crabs",
-        email: 'mastemplanza2020@plm.edu.ph',
-        contact_number: "09653876383",
-        room: 'ABC-207',
-        gender: 'M',
-        dateOfBirth: '2000-01-02',
-        HMO_IDs: [1, 2, 3],
-        specialization_ID: 7
-    }
-]
-
-const Department_List = [
-    { department_Name: 'Department of Anesthesiology' },
-    { department_Name: 'Department of Dental Medicine' },
-    { department_Name: 'Department of Emergency Medicine' }
-]
 
 
 
 
-let ScheduleParams = [{
-    date: "2023-01-22",
-    start_time: "02:00:00",
-    end_time: "06:00:00",
-    total_patient: 4
-}, {
-    date: "2023-01-23",
-    start_time: "01:00:00",
-    end_time: "04:00:00",
-    total_patient: 15
-}, {
-    date: "2023-01-25",
-    start_time: "09:00:00",
-    end_time: "01:00:00",
-    total_patient: 10
-}]
 
-exports.insert = async(req, res) => {
-    // insert.insertHmoList(HMO_List)
-    // insert.insertSpecializationList(Specialization_List)
-    // for (let i = 0; i < 4; i++) {
-    //     insert.InsertDoctor(DoctorParams[i])
-    // }
-    // insert.InsertSchedule('MCM-29b0111a-d4ba-46da-93fe-6092ccd03928', ScheduleParams[0])
-    // insert.InsertSchedule('MCM-49d8d4fa-4daf-4aae-a6c0-634273c6a3eb', ScheduleParams[1])
-    // insert.InsertSchedule('MCM-64b28d1e-19a8-415e-a5f4-6964a3965a35', ScheduleParams[2])
-    res.end()
-}
+
+
+
+
 
 
 //Check appointment section
