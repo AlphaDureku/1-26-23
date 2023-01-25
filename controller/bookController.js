@@ -9,13 +9,11 @@ const uuid = require('uuid');
 exports.renderClinicPage = async(req, res) => {
     req.session.patientModel.appointmentType = "Clinic"
     req.session.UserPatients = null //resets UserPatientList
-    req.session.user_ID = null
     res.render('Services/clinic', { layout: 'layouts/sub', Title: Title.Clinic })
 }
 exports.renderOutpatientPage = async(req, res) => {
     req.session.patientModel.appointmentType = "Outpatient"
     req.session.UserPatients = null
-    req.session.user_ID = null
     res.render('Services/outpatient', { layout: 'layouts/sub', Title: Title.Outpatient })
 }
 exports.createPatientModel = function(req, res, next) {
@@ -65,7 +63,7 @@ exports.compareOTP = async(req, res) => {
     res.send(Patient)
 }
 exports.generateOTP = function(req, res, next) {
-    const hashed = Math.floor(Math.random() * (99999 - 10000 + 1)) + 10000;
+    const hashed = Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000;
     req.session.Patient = {
         Email: req.body.patient_Email,
         OTP: hashed
@@ -193,7 +191,7 @@ exports.setAppointment = async(req, res) => {
     if (req.session.user_ID == null) {
         req.session.user_ID = await insert.insert_user(req.session.Patient.Email)
     }
-    if (req.session.patient_ID == undefined || req.session.patient_ID == '') {
+    if (req.session.patient_ID == 'new') {
         patientParams = {
             user_ID: req.session.user_ID.user_ID,
             Fname: req.session.patientModel.Fname,
