@@ -191,7 +191,7 @@ exports.setAppointment = async(req, res) => {
     if (req.session.user_ID == null) {
         req.session.user_ID = await insert.insert_user(req.session.Patient.Email)
     }
-    if (req.session.patient_ID == 'new') {
+    if (req.session.patient_ID == 'new' || req.session.patient_ID == '' || req.session.patient_ID == null || req.session.patient_ID == undefined) {
         patientParams = {
             user_ID: req.session.user_ID.user_ID,
             Fname: req.session.patientModel.Fname,
