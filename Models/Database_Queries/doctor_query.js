@@ -23,7 +23,6 @@ exports.getOneDoctor = async function(doctor_ID) {
     return await model.doctor.findAll({
         raw: true,
         attributes: [
-
             [Sequelize.fn('date_format', Sequelize.col('doctor_schedule_date'), '%b %e, %Y'), 'date'],
             [Sequelize.fn('date_format', Sequelize.col('doctor_schedule_date'), '%Y-%m-%d'), 'date2'],
             [Sequelize.col('doctor_schedule_start_time'), 'start'],
@@ -38,7 +37,8 @@ exports.getOneDoctor = async function(doctor_ID) {
                     doctor_schedule_status: 'available'
                 }, {
                     doctor_schedule_date: {
-                        [Sequelize.Op.ne]: oneDayFromNow
+                        [Sequelize.Op.ne]: oneDayFromNow,
+                        [Sequelize.Op.gt]: new Date()
                     }
                 }]
 

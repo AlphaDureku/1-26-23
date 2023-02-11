@@ -348,6 +348,7 @@ exports.updateAppointment = async(req, res) => {
     const appointmentInfo = await patient.getappointmentDetails(params.ID)
     const contact = await admin.getContactUsingApp_ID(params.ID)
     let text = ''
+
     if (params.status == 'Confirmed') {
         text = `Hi, ${appointmentInfo.patient_first_name}
         Your appointment request is now confirmed. We will be expecting you at the hospital on ${appointmentInfo.date}, ${appointmentInfo.start} - ${appointmentInfo.end}. 
@@ -474,7 +475,7 @@ async function sendSMS(contact, message) {
             messagingServiceSid: 'MGf7fbaf6d8edab1a80fd7fbdfcaf7ea0b',
             body: message
         });
-        console.log(`Text message sent to ${to}`);
+        console.log(`Text message sent to ${contact}`);
     } catch (error) {
         console.error(error);
     }
