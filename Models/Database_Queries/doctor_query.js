@@ -333,7 +333,16 @@ exports.getSchedule_Using_Spec_SubSpec_HMO = async function (searchOption) {
         required: true,
         attributes: [],
         where: {
-          doctor_schedule_status: "Available",
+          [Sequelize.Op.and]: [
+            {
+              doctor_schedule_status: "available",
+            },
+            {
+              doctor_schedule_date: {
+                [Sequelize.Op.gt]: new Date(),
+              },
+            },
+          ],
         },
       },
     ],
@@ -456,7 +465,16 @@ exports.getSchedule_Using_All = async function (searchOption) {
         required: true,
         attributes: [],
         where: {
-          doctor_schedule_status: "Available",
+          [Sequelize.Op.and]: [
+            {
+              doctor_schedule_status: "available",
+            },
+            {
+              doctor_schedule_date: {
+                [Sequelize.Op.gt]: new Date(),
+              },
+            },
+          ],
         },
       },
     ],
@@ -568,7 +586,16 @@ exports.getSchedule_Using_Fname_Lname = async function (searchOption) {
         required: true,
         attributes: [],
         where: {
-          doctor_schedule_status: "Available",
+          [Sequelize.Op.and]: [
+            {
+              doctor_schedule_status: "available",
+            },
+            {
+              doctor_schedule_date: {
+                [Sequelize.Op.gt]: new Date(),
+              },
+            },
+          ],
         },
       },
     ],
@@ -672,7 +699,16 @@ exports.getSchedule_Using_Fname = async function (searchOption) {
         required: true,
         attributes: [],
         where: {
-          doctor_schedule_status: "Available",
+          [Sequelize.Op.and]: [
+            {
+              doctor_schedule_status: "available",
+            },
+            {
+              doctor_schedule_date: {
+                [Sequelize.Op.gt]: new Date(),
+              },
+            },
+          ],
         },
       },
     ],
@@ -767,7 +803,16 @@ exports.getSchedule_Using_Lname = async function (searchOption) {
         required: true,
         attributes: [],
         where: {
-          doctor_schedule_status: "Available",
+          [Sequelize.Op.and]: [
+            {
+              doctor_schedule_status: "available",
+            },
+            {
+              doctor_schedule_date: {
+                [Sequelize.Op.gt]: new Date(),
+              },
+            },
+          ],
         },
       },
     ],
