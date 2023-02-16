@@ -31,7 +31,6 @@ exports.renderDoctorsDirectory = async(req, res) => {
     if (!searchOption.Fname && !searchOption.Lname && !searchOption.Specialization && !searchOption.doctor_HMO) {
         const result = await doctor.getDoctor()
         const schedule = await doctor.getSchedule()
-
         console.log(result)
         res.render('home/index', { queriedDoctors: result, queriedSchedule: schedule, retainDoctorQuery: searchOption, Title: Title.Home })
             //Using specs only

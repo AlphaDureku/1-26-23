@@ -1,52 +1,40 @@
 <% if(locals.queriedDoctors != null || locals.queriedSchedule != null){%>
-    <div class="center">
-        <div class="grid-container">
-            <%if(queriedDoctors.length===0){%>
-                <div class="notFound">No doctors Found</div>
-                <%}%>
-                    <%queriedDoctors.forEach(data=>{%>
-                        <div>
-                            <div class="doctor-flexbox-container">
-                                <div class="doctor-flexbox-Info">
-                                    <div class="Lname">
-                                        <%=data.doctor_last_name%>
-                                    </div>
-                                    <div class="Fname">
-                                        <%=data.doctor_first_name%>
-                                    </div>
-                                    <div class="HMO_Accreditation">
-                                        <div class="specialization">
-                                            <div class="HMO_Head">Specialization:</div>
-                                            <%=data.specialization%>
-                                        </div>
-                                    </div>
-                                    <div class="HMO_Accreditation">
-                                        <div class="HMO_Head">HMO Accreditation:</div>
-                                        <%const string = data.HMO_Name%>
-                                            <%const res = string.split(',')%>
-                                                <%for(i=0; i<3; i++){%>
-                                                    <%=res[i]%><br>
-                                                        <%}%>
-                                    </div>
-                                </div>
-                                <div class="doctor-flexbox-Avail">
-                                    <div class="header">Availability</div>
-                                    <%queriedSchedule.forEach(sched=>{%>
-                                        <%if(data.doctor_ID == sched.doctor_ID){%>
-                                            <div class="sched">
-                                                <%=sched.day%> |
-                                                    <%=sched.start%> -
-                                                        <%=sched.end%>
-                                            </div>
-
-                                            <%}%>
-                                                <%})%>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <%})%>
-                            <%}%>
+<div class="center">
+  <div class="grid-container">
+    <%if(queriedDoctors.length===0){%>
+    <div class="notFound">No doctors Found</div>
+    <%}%> <%queriedDoctors.forEach(data=>{%>
+    <div>
+      <div class="doctor-flexbox-container">
+        <div class="doctor-flexbox-Info">
+          <div class="Lname"><%=data.doctor_last_name%></div>
+          <div class="Fname"><%=data.doctor_first_name%></div>
+          <div class="HMO_Accreditation">
+            <div class="specialization">
+              <div class="HMO_Head">Specialization:</div>
+              <%=data.specialization%>
+            </div>
+          </div>
+          <div class="HMO_Accreditation">
+            <div class="HMO_Head">HMO Accreditation:</div>
+            <%const string = data.HMO_Name%> <%const res = string.split(',')%>
+            <%for(i=0; i<3; i++){%> <%=res[i]%><br />
+            <%}%>
+          </div>
         </div>
+        <div class="doctor-flexbox-Avail">
+          <div class="header">Availability</div>
+          <%queriedSchedule.forEach(sched=>{%> <%if(data.doctor_ID ==
+          sched.doctor_ID){%>
+          <div class="sched">
+            <%=sched.day%> | <%=sched.start%> - <%=sched.end%>
+          </div>
+
+          <%}%> <%})%>
+        </div>
+      </div>
     </div>
+
+    <%})%> <%}%>
+  </div>
+</div>
