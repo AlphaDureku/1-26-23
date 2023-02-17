@@ -67,7 +67,7 @@ const doctorSchedInclude = [
         },
       ],
     },
-    order: [["doctor_schedule_date", "ASC"]],
+    order: [["doctor_schedule_date", "DESC"]],
   },
 ];
 
@@ -109,26 +109,7 @@ exports.getOneDoctor = async function (doctor_ID) {
       [Sequelize.col("doctor_schedule_start_time"), "start"],
       [Sequelize.col("doctor_schedule_end_time"), "end"],
     ],
-    include: [
-      {
-        model: model.doctor_schedule_table,
-        required: true,
-        attributes: [],
-        where: {
-          [Sequelize.Op.and]: [
-            {
-              doctor_schedule_status: "available",
-            },
-            {
-              doctor_schedule_date: {
-                [Sequelize.Op.ne]: oneDayFromNow,
-                [Sequelize.Op.gt]: new Date(),
-              },
-            },
-          ],
-        },
-      },
-    ],
+    include: doctorSchedInclude,
     where: { doctor_ID: doctor_ID },
   });
 };
