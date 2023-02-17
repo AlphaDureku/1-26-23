@@ -3,12 +3,79 @@ const uuid = require("uuid");
 const Sequelize = require("sequelize");
 const moment = require("moment");
 
-const age = Sequelize.fn(
-  "TIMESTAMPDIFF",
-  Sequelize.literal("YEAR"),
-  Sequelize.literal("doctor_dateOfBirth"),
-  Sequelize.fn("NOW")
-);
+const doctorAttributes = [
+  "doctor_ID",
+  "doctor_first_name",
+  "doctor_last_name",
+  "doctor_gender",
+  "doctor_room",
+  "doctor_contact_number",
+  [Sequelize.fn("group_concat", Sequelize.col("HMO_Name")), "HMO_Name"],
+  [Sequelize.col("specialization_Name"), "specialization"],
+];
+
+const doctorSchedAttributes = [
+  "doctor_ID",
+  [
+    Sequelize.fn(
+      "date_format",
+      Sequelize.col("doctor_schedule_date"),
+      "%b %e, %Y"
+    ),
+    "date",
+  ],
+  [
+    Sequelize.fn(
+      "date_format",
+      Sequelize.col("doctor_schedule_date"),
+      "%b %e, %Y"
+    ),
+    "day",
+  ],
+  [
+    Sequelize.fn(
+      "date_format",
+      Sequelize.col("doctor_schedule_start_time"),
+      "%h:%i%p"
+    ),
+    "start",
+  ],
+  [
+    Sequelize.fn(
+      "date_format",
+      Sequelize.col("doctor_schedule_end_time"),
+      "%h:%i%p"
+    ),
+    "end",
+  ],
+];
+
+const doctorSchedInclude = [
+  {
+    model: model.doctor_schedule_table,
+    required: true,
+    attributes: [],
+    where: {
+      [Sequelize.Op.and]: [
+        {
+          doctor_schedule_status: "available",
+        },
+        {
+          doctor_schedule_date: {
+            [Sequelize.Op.gt]: new Date(),
+          },
+        },
+      ],
+    },
+  },
+];
+
+const groupDoctorInfo = [
+  "doctor_ID",
+  "doctor_first_name",
+  "doctor_last_name",
+  "doctor_contact_number",
+];
 
 const patient_age = Sequelize.fn(
   "TIMESTAMPDIFF",
@@ -18,6 +85,7 @@ const patient_age = Sequelize.fn(
 );
 
 exports.getOneDoctor = async function (doctor_ID) {
+  const oneDayFromNow = Sequelize.literal("CURRENT_DATE + INTERVAL 1 DAY");
   return await model.doctor.findAll({
     raw: true,
     attributes: [
@@ -52,6 +120,7 @@ exports.getOneDoctor = async function (doctor_ID) {
             },
             {
               doctor_schedule_date: {
+                [Sequelize.Op.ne]: oneDayFromNow,
                 [Sequelize.Op.gt]: new Date(),
               },
             },
@@ -132,17 +201,7 @@ exports.getDoctorUsing_ID = async function (doctor_ID) {
 exports.getDoctor = async function () {
   return await model.doctor.findAll({
     raw: true,
-    attributes: [
-      "doctor_ID",
-      "doctor_first_name",
-      "doctor_last_name",
-      [age, "doctor_age"],
-      "doctor_gender",
-      "doctor_room",
-      "doctor_contact_number",
-      [Sequelize.fn("group_concat", Sequelize.col("HMO_Name")), "HMO_Name"],
-      [Sequelize.col("specialization_Name"), "specialization"],
-    ],
+    attributes: doctorAttributes,
     include: [
       {
         model: model.HMO,
@@ -153,91 +212,25 @@ exports.getDoctor = async function () {
         model: model.doctor_specialization,
       },
     ],
-    group: [
-      "doctor_ID",
-      "doctor_first_name",
-      "doctor_last_name",
-      "doctor_contact_number",
-    ],
+    group: groupDoctorInfo,
     order: [["doctor_first_name", "DESC"]],
   });
 };
 
 exports.getSchedule = async function () {
+  const oneDayFromNow = Sequelize.literal("CURRENT_DATE + INTERVAL 1 DAY");
   return await model.doctor.findAll({
     raw: true,
-    attributes: [
-      "doctor_ID",
-      [
-        Sequelize.fn(
-          "date_format",
-          Sequelize.col("doctor_schedule_date"),
-          "%b %e, %Y"
-        ),
-        "date",
-      ],
-      [
-        Sequelize.fn(
-          "date_format",
-          Sequelize.col("doctor_schedule_date"),
-          "%b %e, %Y"
-        ),
-        "day",
-      ],
-      [
-        Sequelize.fn(
-          "date_format",
-          Sequelize.col("doctor_schedule_start_time"),
-          "%h:%i%p"
-        ),
-        "start",
-      ],
-      [
-        Sequelize.fn(
-          "date_format",
-          Sequelize.col("doctor_schedule_end_time"),
-          "%h:%i%p"
-        ),
-        "end",
-      ],
-    ],
+    attributes: doctorSchedAttributes,
     order: [["doctor_first_name", "DESC"]],
-    include: [
-      {
-        model: model.doctor_schedule_table,
-        required: true,
-        attributes: [],
-        where: {
-          [Sequelize.Op.and]: [
-            {
-              doctor_schedule_status: "available",
-            },
-            {
-              doctor_schedule_date: {
-                [Sequelize.Op.gt]: new Date(),
-              },
-            },
-          ],
-        },
-      },
-    ],
+    include: doctorSchedInclude,
   });
 };
 
 exports.getDoctor_Using_Spec_SubSpec_HMO = async function (searchOption) {
   return await model.doctor.findAll({
     raw: true,
-    attributes: [
-      "doctor_ID",
-      "doctor_first_name",
-      "doctor_last_name",
-      "doctor_gender",
-      "doctor_room",
-      [age, "doctor_age"],
-      "doctor_contact_number",
-      [Sequelize.col("specialization_Name"), "specialization"],
-      [Sequelize.fn("group_concat", Sequelize.col("HMO_Name")), "HMO_Name"],
-    ],
+    attributes: doctorAttributes,
 
     include: [
       {
@@ -272,41 +265,7 @@ exports.getDoctor_Using_Spec_SubSpec_HMO = async function (searchOption) {
 exports.getSchedule_Using_Spec_SubSpec_HMO = async function (searchOption) {
   return await model.doctor.findAll({
     raw: true,
-    attributes: [
-      "doctor_ID",
-      [
-        Sequelize.fn(
-          "date_format",
-          Sequelize.col("doctor_schedule_date"),
-          "%b %e, %Y"
-        ),
-        "date",
-      ],
-      [
-        Sequelize.fn(
-          "date_format",
-          Sequelize.col("doctor_schedule_date"),
-          "%b %e, %Y"
-        ),
-        "day",
-      ],
-      [
-        Sequelize.fn(
-          "date_format",
-          Sequelize.col("doctor_schedule_start_time"),
-          "%h:%i%p"
-        ),
-        "start",
-      ],
-      [
-        Sequelize.fn(
-          "date_format",
-          Sequelize.col("doctor_schedule_end_time"),
-          "%h:%i%p"
-        ),
-        "end",
-      ],
-    ],
+    attributes: doctorSchedAttributes,
 
     include: [
       {
@@ -327,40 +286,13 @@ exports.getSchedule_Using_Spec_SubSpec_HMO = async function (searchOption) {
 
     order: [["doctor_first_name", "DESC"]],
 
-    include: [
-      {
-        model: model.doctor_schedule_table,
-        required: true,
-        attributes: [],
-        where: {
-          [Sequelize.Op.and]: [
-            {
-              doctor_schedule_status: "available",
-            },
-            {
-              doctor_schedule_date: {
-                [Sequelize.Op.gt]: new Date(),
-              },
-            },
-          ],
-        },
-      },
-    ],
+    include: doctorSchedInclude,
   });
 };
 exports.getDoctor_Using_All = async function (searchOption) {
   return await model.doctor.findAll({
     raw: true,
-    attributes: [
-      "doctor_ID",
-      "doctor_first_name",
-      "doctor_last_name",
-      "doctor_gender",
-      "doctor_room",
-      [age, "doctor_age"],
-      "doctor_contact_number",
-      [Sequelize.fn("group_concat", Sequelize.col("HMO_Name")), "HMO_Name"],
-    ],
+    attributes: doctorAttributes,
     include: [
       {
         model: model.HMO,
@@ -406,41 +338,7 @@ exports.getSchedule_Using_All = async function (searchOption) {
   console.log(searchOption);
   return await model.doctor.findAll({
     raw: true,
-    attributes: [
-      "doctor_ID",
-      [
-        Sequelize.fn(
-          "date_format",
-          Sequelize.col("doctor_schedule_date"),
-          "%b %e, %Y"
-        ),
-        "date",
-      ],
-      [
-        Sequelize.fn(
-          "date_format",
-          Sequelize.col("doctor_schedule_date"),
-          "%b %e, %Y"
-        ),
-        "day",
-      ],
-      [
-        Sequelize.fn(
-          "date_format",
-          Sequelize.col("doctor_schedule_start_time"),
-          "%h:%i%p"
-        ),
-        "start",
-      ],
-      [
-        Sequelize.fn(
-          "date_format",
-          Sequelize.col("doctor_schedule_end_time"),
-          "%h:%i%p"
-        ),
-        "end",
-      ],
-    ],
+    attributes: doctorSchedAttributes,
     include: [
       {
         model: model.HMO,
@@ -459,25 +357,7 @@ exports.getSchedule_Using_All = async function (searchOption) {
     ],
     order: [["doctor_first_name", "DESC"]],
 
-    include: [
-      {
-        model: model.doctor_schedule_table,
-        required: true,
-        attributes: [],
-        where: {
-          [Sequelize.Op.and]: [
-            {
-              doctor_schedule_status: "available",
-            },
-            {
-              doctor_schedule_date: {
-                [Sequelize.Op.gt]: new Date(),
-              },
-            },
-          ],
-        },
-      },
-    ],
+    include: doctorSchedInclude,
     where: [
       {
         [Sequelize.Op.and]: [
@@ -498,21 +378,15 @@ exports.getSchedule_Using_All = async function (searchOption) {
 exports.getDoctor_Using_Fname_Lname = async function (searchOption) {
   return await model.doctor.findAll({
     raw: true,
-    attributes: [
-      "doctor_ID",
-      "doctor_first_name",
-      "doctor_last_name",
-      "doctor_gender",
-      "doctor_room",
-      [age, "doctor_age"],
-      "doctor_contact_number",
-      [Sequelize.fn("group_concat", Sequelize.col("HMO_Name")), "HMO_Name"],
-    ],
+    attributes: doctorAttributes,
     include: [
       {
         model: model.HMO,
         through: "doctor_HMO_JunctionTable",
         attributes: [],
+      },
+      {
+        model: model.doctor_specialization,
       },
     ],
     order: [["doctor_first_name", "DESC"]],
@@ -542,63 +416,9 @@ exports.getDoctor_Using_Fname_Lname = async function (searchOption) {
 exports.getSchedule_Using_Fname_Lname = async function (searchOption) {
   return await model.doctor.findAll({
     raw: true,
-    attributes: [
-      "doctor_first_name",
-      "doctor_last_name",
-      [
-        Sequelize.fn(
-          "date_format",
-          Sequelize.col("doctor_schedule_date"),
-          "%b %e, %Y"
-        ),
-        "date",
-      ],
-      [
-        Sequelize.fn(
-          "date_format",
-          Sequelize.col("doctor_schedule_date"),
-          "%b %e, %Y"
-        ),
-        "day",
-      ],
-      [
-        Sequelize.fn(
-          "date_format",
-          Sequelize.col("doctor_schedule_start_time"),
-          "%h:%i%p"
-        ),
-        "start",
-      ],
-      [
-        Sequelize.fn(
-          "date_format",
-          Sequelize.col("doctor_schedule_end_time"),
-          "%h:%i%p"
-        ),
-        "end",
-      ],
-      [Sequelize.col("doctor_schedule_status"), "status"],
-    ],
+    attributes: doctorSchedAttributes,
     order: [["doctor_first_name", "DESC"]],
-    include: [
-      {
-        model: model.doctor_schedule_table,
-        required: true,
-        attributes: [],
-        where: {
-          [Sequelize.Op.and]: [
-            {
-              doctor_schedule_status: "available",
-            },
-            {
-              doctor_schedule_date: {
-                [Sequelize.Op.gt]: new Date(),
-              },
-            },
-          ],
-        },
-      },
-    ],
+    include: doctorSchedInclude,
     where: [
       {
         [Sequelize.Op.and]: [
@@ -618,21 +438,15 @@ exports.getSchedule_Using_Fname_Lname = async function (searchOption) {
 exports.getDoctor_Using_Fname = async function (searchOption) {
   return await model.doctor.findAll({
     raw: true,
-    attributes: [
-      "doctor_ID",
-      "doctor_first_name",
-      "doctor_last_name",
-      "doctor_gender",
-      "doctor_room",
-      [age, "doctor_age"],
-      "doctor_contact_number",
-      [Sequelize.fn("group_concat", Sequelize.col("HMO_Name")), "HMO_Name"],
-    ],
+    attributes: doctorAttributes,
     include: [
       {
         model: model.HMO,
         through: "doctor_HMO_JunctionTable",
         attributes: [],
+      },
+      {
+        model: model.doctor_specialization,
       },
     ],
     order: [["doctor_first_name", "DESC"]],
@@ -655,63 +469,10 @@ exports.getDoctor_Using_Fname = async function (searchOption) {
 exports.getSchedule_Using_Fname = async function (searchOption) {
   return await model.doctor.findAll({
     raw: true,
-    attributes: [
-      "doctor_first_name",
-      [
-        Sequelize.fn(
-          "date_format",
-          Sequelize.col("doctor_schedule_date"),
-          "%b %e, %Y"
-        ),
-        "date",
-      ],
-      [
-        Sequelize.fn(
-          "date_format",
-          Sequelize.col("doctor_schedule_date"),
-          "%b %e, %Y"
-        ),
-        "day",
-      ],
-      [
-        Sequelize.fn(
-          "date_format",
-          Sequelize.col("doctor_schedule_start_time"),
-          "%h:%i%p"
-        ),
-        "start",
-      ],
-      [
-        Sequelize.fn(
-          "date_format",
-          Sequelize.col("doctor_schedule_end_time"),
-          "%h:%i%p"
-        ),
-        "end",
-      ],
-      [Sequelize.col("doctor_schedule_status"), "status"],
-    ],
+    attributes: doctorSchedAttributes,
 
     order: [["doctor_first_name", "DESC"]],
-    include: [
-      {
-        model: model.doctor_schedule_table,
-        required: true,
-        attributes: [],
-        where: {
-          [Sequelize.Op.and]: [
-            {
-              doctor_schedule_status: "available",
-            },
-            {
-              doctor_schedule_date: {
-                [Sequelize.Op.gt]: new Date(),
-              },
-            },
-          ],
-        },
-      },
-    ],
+    include: doctorSchedInclude,
     where: [
       {
         doctor_first_name: {
@@ -724,21 +485,15 @@ exports.getSchedule_Using_Fname = async function (searchOption) {
 exports.getDoctor_Using_Lname = async function (searchOption) {
   return await model.doctor.findAll({
     raw: true,
-    attributes: [
-      "doctor_ID",
-      "doctor_first_name",
-      "doctor_last_name",
-      "doctor_gender",
-      "doctor_room",
-      [age, "doctor_age"],
-      "doctor_contact_number",
-      [Sequelize.fn("group_concat", Sequelize.col("HMO_Name")), "HMO_Name"],
-    ],
+    attributes: doctorAttributes,
     include: [
       {
         model: model.HMO,
         through: "doctor_HMO_JunctionTable",
         attributes: [],
+      },
+      {
+        model: model.doctor_specialization,
       },
     ],
     order: [["doctor_first_name", "DESC"]],
@@ -760,62 +515,9 @@ exports.getDoctor_Using_Lname = async function (searchOption) {
 exports.getSchedule_Using_Lname = async function (searchOption) {
   return await model.doctor.findAll({
     raw: true,
-    attributes: [
-      "doctor_last_name",
-      [
-        Sequelize.fn(
-          "date_format",
-          Sequelize.col("doctor_schedule_date"),
-          "%b %e, %Y"
-        ),
-        "date",
-      ],
-      [
-        Sequelize.fn(
-          "date_format",
-          Sequelize.col("doctor_schedule_date"),
-          "%b %e, %Y"
-        ),
-        "day",
-      ],
-      [
-        Sequelize.fn(
-          "date_format",
-          Sequelize.col("doctor_schedule_start_time"),
-          "%h:%i%p"
-        ),
-        "start",
-      ],
-      [
-        Sequelize.fn(
-          "date_format",
-          Sequelize.col("doctor_schedule_end_time"),
-          "%h:%i%p"
-        ),
-        "end",
-      ],
-      [Sequelize.col("doctor_schedule_status"), "status"],
-    ],
+    attributes: doctorSchedAttributes,
     order: [["doctor_first_name", "DESC"]],
-    include: [
-      {
-        model: model.doctor_schedule_table,
-        required: true,
-        attributes: [],
-        where: {
-          [Sequelize.Op.and]: [
-            {
-              doctor_schedule_status: "available",
-            },
-            {
-              doctor_schedule_date: {
-                [Sequelize.Op.gt]: new Date(),
-              },
-            },
-          ],
-        },
-      },
-    ],
+    include: doctorSchedInclude,
     where: [
       {
         doctor_last_name: {
