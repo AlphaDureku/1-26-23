@@ -67,6 +67,7 @@ const doctorSchedInclude = [
         },
       ],
     },
+    order: [["doctor_schedule_date", "ASC"]],
   },
 ];
 
@@ -284,8 +285,6 @@ exports.getSchedule_Using_Spec_SubSpec_HMO = async function (searchOption) {
       },
     ],
 
-    order: [["doctor_schedule_date", "ASC"]],
-
     include: doctorSchedInclude,
   });
 };
@@ -355,8 +354,6 @@ exports.getSchedule_Using_All = async function (searchOption) {
         ],
       },
     ],
-    order: [["doctor_schedule_date", "ASC"]],
-
     include: doctorSchedInclude,
     where: [
       {
@@ -417,7 +414,6 @@ exports.getSchedule_Using_Fname_Lname = async function (searchOption) {
   return await model.doctor.findAll({
     raw: true,
     attributes: doctorSchedAttributes,
-    order: [["doctor_schedule_date", "ASC"]],
     include: doctorSchedInclude,
     where: [
       {
@@ -470,8 +466,6 @@ exports.getSchedule_Using_Fname = async function (searchOption) {
   return await model.doctor.findAll({
     raw: true,
     attributes: doctorSchedAttributes,
-
-    order: [["doctor_schedule_date", "ASC"]],
     include: doctorSchedInclude,
     where: [
       {
@@ -516,7 +510,6 @@ exports.getSchedule_Using_Lname = async function (searchOption) {
   return await model.doctor.findAll({
     raw: true,
     attributes: doctorSchedAttributes,
-    order: [["doctor_schedule_date", "ASC"]],
     include: doctorSchedInclude,
     where: [
       {
