@@ -222,7 +222,7 @@ exports.getSchedule = async function () {
   return await model.doctor.findAll({
     raw: true,
     attributes: doctorSchedAttributes,
-    order: [["doctor_first_name", "DESC"]],
+    order: [["doctor_first_name", "ASC"]],
     include: doctorSchedInclude,
   });
 };
@@ -284,7 +284,7 @@ exports.getSchedule_Using_Spec_SubSpec_HMO = async function (searchOption) {
       },
     ],
 
-    order: [["doctor_first_name", "DESC"]],
+    order: [["doctor_first_name", "ASC"]],
 
     include: doctorSchedInclude,
   });
@@ -355,7 +355,7 @@ exports.getSchedule_Using_All = async function (searchOption) {
         ],
       },
     ],
-    order: [["doctor_first_name", "DESC"]],
+    order: [["doctor_first_name", "ASC"]],
 
     include: doctorSchedInclude,
     where: [
@@ -417,7 +417,7 @@ exports.getSchedule_Using_Fname_Lname = async function (searchOption) {
   return await model.doctor.findAll({
     raw: true,
     attributes: doctorSchedAttributes,
-    order: [["doctor_first_name", "DESC"]],
+    order: [["doctor_first_name", "ASC"]],
     include: doctorSchedInclude,
     where: [
       {
@@ -471,7 +471,7 @@ exports.getSchedule_Using_Fname = async function (searchOption) {
     raw: true,
     attributes: doctorSchedAttributes,
 
-    order: [["doctor_first_name", "DESC"]],
+    order: [["doctor_first_name", "ASC"]],
     include: doctorSchedInclude,
     where: [
       {
@@ -516,7 +516,7 @@ exports.getSchedule_Using_Lname = async function (searchOption) {
   return await model.doctor.findAll({
     raw: true,
     attributes: doctorSchedAttributes,
-    order: [["doctor_first_name", "DESC"]],
+    order: [["doctor_first_name", "ASC"]],
     include: doctorSchedInclude,
     where: [
       {
